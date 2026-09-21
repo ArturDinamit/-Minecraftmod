@@ -7,6 +7,7 @@
 <title>Minecraft Mods</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -26,30 +27,30 @@ body {
     min-height: 100vh;
 }
 
+/* ФОН */
+
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
-    opacity: .07;
+    opacity: .08;
     background-image:
         linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px);
     background-size: 40px 40px;
 }
 
-/* ШАПКА */
+/* HEADER */
 
 .header {
     position: sticky;
     top: 0;
     z-index: 100;
-
-    padding: 18px;
-
+    padding: 20px;
     text-align: center;
 
-    background: rgba(8,10,10,.78);
+    background: rgba(8,10,10,.75);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 
@@ -59,13 +60,14 @@ body::before {
 .logo {
     font-size: 27px;
     font-weight: 900;
+    letter-spacing: -.5px;
 }
 
 .logo span {
     color: #42e66c;
 }
 
-/* ЗАГОЛОВОК */
+/* HERO */
 
 .hero {
     padding: 45px 20px 30px;
@@ -74,8 +76,7 @@ body::before {
 
 .hero h1 {
     margin: 0;
-
-    font-size: clamp(36px, 9vw, 65px);
+    font-size: clamp(35px, 9vw, 65px);
     font-weight: 900;
     line-height: 1;
 
@@ -88,20 +89,17 @@ body::before {
 
     -webkit-background-clip: text;
     background-clip: text;
-
     color: transparent;
 }
 
 .hero p {
     margin: 18px auto 0;
-
     max-width: 600px;
-
     color: #929a96;
     font-size: 16px;
 }
 
-/* КОНТЕЙНЕР */
+/* CONTAINER */
 
 .container {
     width: min(900px, calc(100% - 30px));
@@ -109,18 +107,15 @@ body::before {
     padding-bottom: 60px;
 }
 
-/* КАРТОЧКА МОДА */
+/* CARD */
 
 .mod-card {
     position: relative;
     overflow: hidden;
-
     border-radius: 26px;
-
     cursor: pointer;
 
     background: rgba(22,27,25,.78);
-
     border: 1px solid rgba(255,255,255,.08);
 
     box-shadow:
@@ -137,7 +132,6 @@ body::before {
 
 .mod-card:hover {
     transform: translateY(-7px);
-
     border-color: rgba(65,235,108,.35);
 
     box-shadow:
@@ -149,7 +143,7 @@ body::before {
     transform: scale(.98);
 }
 
-/* КАРТИНКА */
+/* IMAGE */
 
 .image-wrapper {
     position: relative;
@@ -159,9 +153,7 @@ body::before {
 .mod-card img {
     width: 100%;
     height: 330px;
-
     object-fit: cover;
-
     display: block;
 
     transition: transform .6s ease;
@@ -187,16 +179,13 @@ body::before {
 
 .badge {
     position: absolute;
-
     top: 18px;
     left: 18px;
 
     padding: 8px 13px;
-
     border-radius: 999px;
 
     background: rgba(20,25,22,.75);
-
     border: 1px solid rgba(255,255,255,.12);
 
     backdrop-filter: blur(10px);
@@ -205,7 +194,7 @@ body::before {
     font-weight: bold;
 }
 
-/* ИНФОРМАЦИЯ КАРТОЧКИ */
+/* CARD INFO */
 
 .mod-info {
     padding: 22px;
@@ -213,31 +202,25 @@ body::before {
 
 .mod-info h2 {
     margin: 0 0 8px;
-
-    font-size: 27px;
+    font-size: 25px;
 }
 
 .mod-info p {
     margin: 0;
-
     color: #929a96;
-
-    line-height: 1.5;
 }
 
 .open-text {
     margin-top: 20px;
-
     display: inline-flex;
     align-items: center;
     gap: 8px;
 
     color: #55ee79;
-
     font-weight: bold;
 }
 
-/* ПОЛНОЭКРАННОЕ ОКНО */
+/* MODAL */
 
 .modal {
     position: fixed;
@@ -252,7 +235,6 @@ body::before {
         rgba(4,6,6,.98);
 
     display: none;
-
     z-index: 1000;
 
     overflow-y: auto;
@@ -266,20 +248,17 @@ body::before {
 
 .modal-content {
     width: min(850px, calc(100% - 30px));
-
     min-height: 100vh;
 
     margin: auto;
-
     padding: 20px 0 50px;
 }
 
-/* КНОПКА ЗАКРЫТЬ */
+/* CLOSE */
 
 .close {
     position: sticky;
     top: 15px;
-
     z-index: 10;
 
     margin-left: auto;
@@ -292,15 +271,12 @@ body::before {
     height: 48px;
 
     border: 1px solid rgba(255,255,255,.1);
-
     border-radius: 50%;
 
     background: rgba(30,35,33,.8);
-
     color: white;
 
     font-size: 25px;
-
     cursor: pointer;
 
     backdrop-filter: blur(15px);
@@ -310,18 +286,15 @@ body::before {
 
 .close:hover {
     background: #35d965;
-
     color: #071009;
-
     transform: rotate(90deg);
 }
 
-/* КАРТИНКА В ОКНЕ */
+/* MODAL IMAGE */
 
 .modal-image {
     width: 100%;
-
-    max-height: 500px;
+    max-height: 470px;
 
     object-fit: cover;
 
@@ -335,7 +308,7 @@ body::before {
         0 30px 80px rgba(0,0,0,.55);
 }
 
-/* ОПИСАНИЕ */
+/* DESCRIPTION */
 
 .description {
     padding: 28px 5px;
@@ -345,62 +318,16 @@ body::before {
     margin: 0 0 14px;
 
     font-size: clamp(30px, 7vw, 45px);
-
     font-weight: 900;
 }
 
 .description p {
     color: #aeb5b1;
-
     line-height: 1.7;
-
     font-size: 16px;
 }
 
-/* СПИСОК */
-
-.items-title {
-    margin-top: 30px;
-    margin-bottom: 15px;
-
-    font-size: 22px;
-    font-weight: 900;
-}
-
-.items {
-    display: grid;
-    gap: 10px;
-}
-
-.item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    padding: 14px;
-
-    border-radius: 14px;
-
-    background: rgba(255,255,255,.035);
-
-    border: 1px solid rgba(255,255,255,.06);
-
-    color: #d7ddd9;
-
-    line-height: 1.4;
-}
-
-.item::before {
-    content: "◆";
-
-    color: #4be972;
-
-    font-size: 11px;
-
-    flex-shrink: 0;
-}
-
-/* ИНФО */
+/* INFO BOX */
 
 .info-box {
     margin-top: 25px;
@@ -410,35 +337,28 @@ body::before {
     border-radius: 18px;
 
     background: rgba(255,255,255,.035);
-
     border: 1px solid rgba(255,255,255,.07);
 }
 
 .info-box-title {
     color: #52e873;
-
     font-weight: bold;
-
     margin-bottom: 8px;
 }
 
-/* КНОПКА СКАЧИВАНИЯ */
+/* DOWNLOAD */
 
 .download {
     position: relative;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 10px;
 
     width: 100%;
 
-    margin-top: 25px;
-
+    margin-top: 10px;
     padding: 18px;
 
     border-radius: 17px;
@@ -453,11 +373,9 @@ body::before {
     color: #061009;
 
     text-align: center;
-
     text-decoration: none;
 
     font-size: 18px;
-
     font-weight: 900;
 
     box-shadow:
@@ -477,7 +395,7 @@ body::before {
     transform: scale(.98);
 }
 
-/* ПОДПИСЬ */
+/* NOTE */
 
 .note {
     margin-top: 13px;
@@ -493,18 +411,15 @@ body::before {
 
 .footer {
     text-align: center;
-
     padding: 30px 20px 50px;
 
     color: #4f5753;
-
     font-size: 13px;
 }
 
-/* АНИМАЦИИ */
+/* ANIMATIONS */
 
 @keyframes appear {
-
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -514,11 +429,9 @@ body::before {
         opacity: 1;
         transform: translateY(0);
     }
-
 }
 
 @keyframes fadeIn {
-
     from {
         opacity: 0;
     }
@@ -526,10 +439,9 @@ body::before {
     to {
         opacity: 1;
     }
-
 }
 
-/* ТЕЛЕФОН */
+/* MOBILE */
 
 @media (max-width: 600px) {
 
@@ -560,7 +472,6 @@ body::before {
     .modal-image {
         border-radius: 20px;
     }
-
 }
 
 </style>
@@ -568,24 +479,19 @@ body::before {
 
 <body>
 
-
 <header class="header">
-
     <div class="logo">
         Minecraft <span>Mods</span>
     </div>
-
 </header>
 
 
 <section class="hero">
 
-    <h1>
-        Моды Minecraft
-    </h1>
+    <h1>Моды Minecraft</h1>
 
     <p>
-        Смотри моды, читай описание и скачивай их прямо с сайта
+        Смотри моды, открывай описание и скачивай нужные файлы
     </p>
 
 </section>
@@ -593,16 +499,13 @@ body::before {
 
 <main class="container">
 
-
-    <!-- ПЕРВЫЙ МОД -->
-
     <div class="mod-card" onclick="openMod()">
 
         <div class="image-wrapper">
 
             <img
-                src="5002.jpg"
-                alt="Несбалансированная Кузница">
+                src="https://media.forgecdn.net/attachments/1396/956/mss-cover.png"
+                alt="More Simple Structures">
 
             <div class="image-overlay"></div>
 
@@ -616,11 +519,11 @@ body::before {
         <div class="mod-info">
 
             <h2>
-                Несбалансированная Кузница
+                More Simple Structures
             </h2>
 
             <p>
-                Незеритовая экипировка с максимальными чарами всего за 1 изумруд
+                Новые структуры и интересные места в мире Minecraft
             </p>
 
             <div class="open-text">
@@ -631,123 +534,49 @@ body::before {
 
     </div>
 
-
 </main>
 
 
-<footer class="footer">
+<div class="footer">
     Minecraft Mods • Bedrock Edition
-</footer>
+</div>
 
 
-<!-- ОКНО МОДА -->
+<!-- MODAL -->
 
 <div class="modal" id="modModal">
 
     <div class="modal-content">
 
-
         <button
             class="close"
             onclick="closeMod()">
-
             ×
-
         </button>
 
 
         <img
             class="modal-image"
-            src="5002.jpg"
-            alt="Несбалансированная Кузница">
+            src="https://media.forgecdn.net/attachments/1396/956/mss-cover.png"
+            alt="More Simple Structures">
 
 
         <div class="description">
 
-
             <h2>
-                Несбалансированная Кузница
+                More Simple Structures
             </h2>
 
 
             <p>
-                Если тебе не хочется тратить много опыта и ресурсов
-                на получение хорошей экипировки, мод OP Toolsmith
-                даст другой вариант развития.
+                Тут пока ничего нет
             </p>
 
 
             <p>
-                Житель-кузнец получит новые, несбалансированные сделки,
-                среди которых есть Незеритовая броня и инструменты
-                с максимальными чарами.
+                Добавляет новые структуры в Minecraft Bedrock
+                и делает исследование мира интереснее.
             </p>
-
-
-            <p>
-                Майнкрафт при этом сохранит обычную необходимость
-                добывать Изумруды, но за каждый особый предмет
-                достаточно будет заплатить всего 1 Изумруд.
-            </p>
-
-
-            <div class="items-title">
-                Доступные вещи
-            </div>
-
-
-            <div class="items">
-
-
-                <div class="item">
-                    Максимальный зачарованный незеритовый шлем
-                    — 1 изумруд
-                </div>
-
-
-                <div class="item">
-                    Максимальный зачарованный незеритовый нагрудник
-                    — 1 изумруд
-                </div>
-
-
-                <div class="item">
-                    Максимальные зачарованные незеритовые поножи
-                    — 1 изумруд
-                </div>
-
-
-                <div class="item">
-                    Максимально зачарованные незеритовые сапоги
-                    — 1 изумруд
-                </div>
-
-
-                <div class="item">
-                    Максимально зачарованный незеритовый меч
-                    — 1 изумруд
-                </div>
-
-
-                <div class="item">
-                    Максимальная зачарованная незеритовая кирка
-                    — 1 изумруд
-                </div>
-
-
-                <div class="item">
-                    Максимально зачарованный незеритовый топор
-                    — 1 изумруд
-                </div>
-
-
-                <div class="item">
-                    Тотем Бессмертия
-                    — 1 изумруд
-                </div>
-
-
-            </div>
 
 
             <div class="info-box">
@@ -757,15 +586,7 @@ body::before {
                 </div>
 
                 <div>
-                    Название: Несбалансированная Кузница
-                </div>
-
-                <div>
-                    Оригинальное название: OP Toolsmith
-                </div>
-
-                <div>
-                    Версия: Minecraft Bedrock
+                    Версия: Bedrock Edition
                 </div>
 
                 <div>
@@ -774,16 +595,14 @@ body::before {
 
             </div>
 
-
         </div>
 
 
-        <!-- СКАЧИВАНИЕ -->
-
         <a
             class="download"
-            href="OP Toolsmith Trades.mcaddon"
-            download>
+            href="https://www.curseforge.com/minecraft-bedrock/addons/more-simple-structures-addon/files/8796286"
+            target="_blank"
+            rel="noopener">
 
             ↓ Скачать мод
 
@@ -791,11 +610,8 @@ body::before {
 
 
         <div class="note">
-
-            Файл .mcaddon для Minecraft Bedrock
-
+            Откроется страница файла .mcaddon
         </div>
-
 
     </div>
 
@@ -804,7 +620,6 @@ body::before {
 
 <script>
 
-
 function openMod() {
 
     document
@@ -812,7 +627,6 @@ function openMod() {
         .classList.add("active");
 
     document.body.style.overflow = "hidden";
-
 }
 
 
@@ -823,45 +637,33 @@ function closeMod() {
         .classList.remove("active");
 
     document.body.style.overflow = "";
-
 }
 
 
-/* Закрытие через ESC */
+/* Закрытие по Escape */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+document.addEventListener("keydown", function(event) {
 
-        if (event.key === "Escape") {
-
-            closeMod();
-
-        }
-
+    if (event.key === "Escape") {
+        closeMod();
     }
-);
+
+});
 
 
-/* Закрытие нажатием на фон */
+/* Закрытие если нажать на фон */
 
 document
     .getElementById("modModal")
-    .addEventListener(
-        "click",
-        function(event) {
+    .addEventListener("click", function(event) {
 
-            if (event.target === this) {
-
-                closeMod();
-
-            }
-
+        if (event.target === this) {
+            closeMod();
         }
-    );
+
+    });
 
 </script>
-
 
 </body>
 </html>
