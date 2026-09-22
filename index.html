@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minecraft Mods</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
@@ -21,24 +21,81 @@
                 #070909;
         }
 
-        .header {
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .topbar {
             position: sticky;
             top: 0;
-            z-index: 10;
-            padding: 18px;
-            text-align: center;
-            background: rgba(8, 10, 10, 0.9);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(15px);
+            z-index: 20;
+            height: 64px;
+            background: rgba(8, 10, 10, 0.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .topbar-inner {
+            width: min(1100px, calc(100% - 30px));
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            border: 0;
+            background: transparent;
+            color: #aebbb2;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: rgba(66, 230, 108, 0.13);
+            color: #7cff99;
         }
 
         .logo {
-            font-size: 27px;
+            font-size: 22px;
             font-weight: 900;
+            letter-spacing: 0.2px;
         }
 
         .logo span {
             color: #42e66c;
+        }
+
+        .saved-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .saved-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: #42e66c;
+            color: #071009;
+            font-size: 11px;
+            font-weight: 900;
         }
 
         .hero {
@@ -50,7 +107,7 @@
             margin: 0;
             font-size: clamp(35px, 9vw, 65px);
             line-height: 1;
-            background: linear-gradient(135deg, #fff, #8cffaa, #35e96c);
+            background: linear-gradient(135deg, #ffffff, #8cffaa, #35e96c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -60,11 +117,13 @@
             margin: 18px auto 0;
             max-width: 600px;
             color: #929a96;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         .container {
             width: min(900px, calc(100% - 30px));
-            margin: auto;
+            margin: 0 auto;
             padding-bottom: 60px;
         }
 
@@ -78,14 +137,14 @@
             border-radius: 26px;
             background: rgba(22, 27, 25, 0.9);
             border: 1px solid rgba(255,255,255,0.08);
-            cursor: pointer;
             box-shadow: 0 25px 80px rgba(0,0,0,0.45);
+            cursor: pointer;
             transition: 0.3s ease;
         }
 
         .mod-card:hover {
             transform: translateY(-7px);
-            border-color: rgba(65, 235, 108, 0.45);
+            border-color: rgba(65,235,108,0.45);
         }
 
         .image-wrapper {
@@ -104,6 +163,7 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to top, rgba(5,8,7,.9), transparent 55%);
+            pointer-events: none;
         }
 
         .badge {
@@ -133,10 +193,43 @@
             line-height: 1.6;
         }
 
-        .open-text {
+        .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
             margin-top: 20px;
+        }
+
+        .open-text {
             color: #55ee79;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            border: 1px solid rgba(66, 230, 108, 0.35);
+            background: rgba(66, 230, 108, 0.08);
+            color: #8cffaa;
+            border-radius: 12px;
+            padding: 10px 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .save-btn.saved {
+            background: #42e66c;
+            color: #071009;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            border: 1px dashed rgba(255,255,255,0.16);
+            border-radius: 20px;
+            color: #929a96;
+            line-height: 1.7;
         }
 
         .footer {
@@ -153,7 +246,7 @@
             display: none;
             overflow-y: auto;
             padding: 20px 0 50px;
-            background: rgba(4,6,6,0.98);
+            background: rgba(4, 6, 6, 0.98);
         }
 
         .modal.active {
@@ -223,7 +316,7 @@
         .item {
             padding: 14px;
             border-radius: 14px;
-            background: rgba(255,255,255, 0.05);
+            background: rgba(255,255,255,0.05);
             color: #d7ddd9;
         }
 
@@ -267,6 +360,19 @@
         }
 
         @media (max-width: 600px) {
+            .topbar-inner {
+                width: calc(100% - 16px);
+            }
+
+            .nav-btn {
+                padding: 9px 8px;
+                font-size: 13px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
             .container {
                 width: calc(100% - 20px);
             }
@@ -274,292 +380,310 @@
             .mod-card img {
                 height: 240px;
             }
+
+            .card-actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .save-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
-
-<header class="header">
-    <div class="logo">
-        Minecraft <span>Mods</span>
-    </div>
-</header>
-
-<section class="hero">
-    <h1>Моды Minecraft</h1>
-    <p>Смотри моды, открывай описание и скачивай их прямо с сайта</p>
-</section>
-
-<main class="container">
-    <div class="mods">
-
-        <!-- 1 мод -->
-        <div class="mod-card" onclick="openModal('forgeModal')">
-            <div class="image-wrapper">
-                <img
-                    class="mod-card-image"
-                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
-                    alt="Несбалансированная Кузница"
-                >
-                <div class="image-overlay"></div>
-                <div class="badge">MINECRAFT BEDROCK</div>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="nav">
+                <button class="nav-btn active" id="modsTab" type="button">Моды</button>
             </div>
 
-            <div class="mod-info">
-                <h2>Несбалансированная Кузница</h2>
-                <p>Незеритовая экипировка с максимальными чарами всего за 1 изумруд.</p>
-                <div class="open-text">Открыть описание →</div>
+            <div class="logo">
+                Minecraft <span>Mods</span>
+            </div>
+
+            <div class="nav">
+                <button class="nav-btn" id="savedTab" type="button">
+                    <span class="saved-label">
+                        Сохраненные
+                        <span id="savedCount" class="saved-count">0</span>
+                    </span>
+                </button>
             </div>
         </div>
+    </header>
 
-        <!-- 2 мод -->
-        <div class="mod-card" onclick="openModal('gunsModal')">
-            <div class="image-wrapper">
-                <img
-                    class="mod-card-image"
-                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
-                    alt="Современное оружие"
-                >
-                <div class="image-overlay"></div>
-                <div class="badge">MINECRAFT BEDROCK</div>
+    <section class="hero">
+        <h1>Моды Minecraft</h1>
+        <p>Смотри моды, открывай описание, сохраняй понравившиеся и скачивай их прямо с сайта</p>
+    </section>
+
+    <main class="container">
+        <div id="modsList" class="mods"></div>
+    </main>
+
+    <footer class="footer">
+        Minecraft Mods • Bedrock Edition
+    </footer>
+
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <button class="close" data-close="detailModal">×</button>
+
+            <img id="detailImage" class="modal-image" src="" alt="" />
+
+            <div class="description">
+                <h2 id="detailTitle"></h2>
+                <p id="detailDescription"></p>
+
+                <div id="detailItems"></div>
+
+                <div id="detailInfo" class="info-box"></div>
+
+                <a id="detailDownload" class="download" href="" download="">
+                    ↓ Скачать мод
+                </a>
+
+                <div class="note">Файл для Minecraft Bedrock</div>
             </div>
-
-            <div class="mod-info">
-                <h2>Современное оружие с разными стилями боя</h2>
-                <p>Современное и классическое огнестрельное оружие с разными характеристиками и боеприпасами.</p>
-                <div class="open-text">Открыть описание →</div>
-            </div>
-        </div>
-
-        <!-- 3 мод -->
-        <div class="mod-card" onclick="openModal('ladaModal')">
-            <div class="image-wrapper">
-                <img
-                    class="mod-card-image"
-                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/Lada.jpg"
-                    alt="Лада Веста"
-                >
-                <div class="image-overlay"></div>
-                <div class="badge">MINECRAFT BEDROCK</div>
-            </div>
-
-            <div class="mod-info">
-                <h2>Лада Веста</h2>
-                <p>У тебя появится собственная русская машина в Minecraft с открывающимися дверьми, капотом и багажником.</p>
-                <div class="open-text">Открыть описание →</div>
-            </div>
-        </div>
-
-    </div>
-</main>
-
-<footer class="footer">
-    Minecraft Mods • Bedrock Edition
-</footer>
-
-<!-- Мод 1 -->
-<div class="modal" id="forgeModal">
-    <div class="modal-content">
-
-        <button class="close" onclick="closeModal('forgeModal')">×</button>
-
-        <img
-            class="modal-image"
-            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
-            alt="Несбалансированная Кузница"
-        >
-
-        <div class="description">
-            <h2>Несбалансированная Кузница</h2>
-
-            <p>
-                Если тебе не хочется тратить много опыта и ресурсов на получение хорошей экипировки,
-                мод OP Toolsmith даст другой вариант развития.
-            </p>
-
-            <p>
-                Житель-кузнец получит новые сделки, среди которых есть незеритовая броня
-                и инструменты с максимальными чарами.
-            </p>
-
-            <div class="info-box">
-                <div class="info-title">Информация</div>
-                <div>Оригинальное название: OP Toolsmith</div>
-                <div>Версия: Minecraft Bedrock</div>
-                <div>Тип: Addon</div>
-            </div>
-
-            <a
-                class="download"
-                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/mod.mcaddon"
-                download="mod.mcaddon"
-            >
-                ↓ Скачать мод
-            </a>
-
-            <div class="note">Файл mod.mcaddon для Minecraft Bedrock</div>
         </div>
     </div>
-</div>
 
-<!-- Мод 2 -->
-<div class="modal" id="gunsModal">
-    <div class="modal-content">
+    <div class="modal" id="savedModal">
+        <div class="modal-content">
+            <button class="close" data-close="savedModal">×</button>
 
-        <button class="close" onclick="closeModal('gunsModal')">×</button>
-
-        <img
-            class="modal-image"
-            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
-            alt="Современное оружие"
-        >
-
-        <div class="description">
-            <h2>Современное оружие с разными стилями боя</h2>
-
-            <p>
-                Добавь в выживание современное и классическое огнестрельное оружие
-                с разными характеристиками и типами боеприпасов.
-            </p>
-
-            <p>
-                В Minecraft появится огнестрельное оружие с разными типами боеприпасов
-                и особенностями стрельбы.
-            </p>
-
-            <p>
-                Мод TR’s Simple Guns включает Револьвер, Пистолет,
-                Пистолет-пулемёт и Двуствольный обрез.
-            </p>
-
-            <p>
-                Характеристики отличаются по урону, скорострельности, дальности,
-                точности и отдаче.
-            </p>
-
-            <div class="items-title">Оружие в моде</div>
-
-            <div class="items">
-                <div class="item">Револьвер</div>
-                <div class="item">Пистолет</div>
-                <div class="item">Пистолет-пулемёт</div>
-                <div class="item">Двуствольный обрез</div>
+            <div class="description">
+                <h2>Сохраненные моды</h2>
+                <p>Здесь находятся моды, которые ты сохранил.</p>
+                <div id="savedList" class="mods"></div>
             </div>
-
-            <div class="info-box">
-                <div class="info-title">Информация</div>
-                <div>Название: TR’s Simple Guns</div>
-                <div>Версия: Minecraft Bedrock</div>
-                <div>Тип: Addon</div>
-                <div>Боеприпасы: разные типы</div>
-            </div>
-
-            <a
-                class="download"
-                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/guns.mcpack"
-                download="guns.mcpack"
-            >
-                ↓ Скачать мод
-            </a>
-
-            <div class="note">Файл guns.mcpack для Minecraft Bedrock</div>
         </div>
     </div>
-</div>
 
-<!-- Мод 3 -->
-<div class="modal" id="ladaModal">
-    <div class="modal-content">
+    <script>
+        const BASE = "https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/";
 
-        <button class="close" onclick="closeModal('ladaModal')">×</button>
-
-        <img
-            class="modal-image"
-            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/Lada.jpg"
-            alt="Лада Веста"
-        >
-
-        <div class="description">
-            <h2>Лада Веста</h2>
-
-            <p>
-                Кто из нас не хотел бы получить собственную Ладу Весту?
-                Одна из самых популярных русских машин появится в MCPE
-                с модом Лада Веста.
-            </p>
-
-            <p>
-                Ты можешь открыть двери, капот и багажник, посадить
-                до четырёх игроков и завести машину с ключа.
-            </p>
-
-            <div class="items-title">Функции</div>
-
-            <div class="items">
-                <div class="item">Доступны разные цвета, окраски Такси и ДПС</div>
-                <div class="item">Открываются все двери, капот и багажник</div>
-                <div class="item">4 посадочных места</div>
-                <div class="item">Заводится с ключа</div>
-                <div class="item">Есть коробка передач</div>
-                <div class="item">Анимации дворников, выхлопа, физики</div>
-                <div class="item">Спидометр</div>
-                <div class="item">Коллизия</div>
-                <div class="item">Требуется бензин</div>
-                <div class="item">Есть музыка</div>
-                <div class="item">Для получения нужен творческий режим</div>
-            </div>
-
-            <div class="info-box">
-                <div class="info-title">Информация</div>
-                <div>Название: Лада Веста</div>
-                <div>Версия: Minecraft Bedrock</div>
-                <div>Тип: Addon</div>
-                <div>Стиль: Автомобиль / транспорт</div>
-            </div>
-
-            <a
-                class="download"
-                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/Lada.mcaddon?download=1"
-                download="Lada.mcaddon"
-            >
-                ↓ Скачать мод
-            </a>
-
-            <div class="note">Файл Lada.mcaddon для Minecraft Bedrock</div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openModal(id) {
-        document.getElementById(id).classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(id) {
-        document.getElementById(id).classList.remove("active");
-        document.body.style.overflow = "";
-    }
-
-    document.querySelectorAll(".modal").forEach(function(modal) {
-        modal.addEventListener("click", function(event) {
-            if (event.target === modal) {
-                closeModal(modal.id);
+        const mods = [
+            {
+                id: "forge",
+                name: "Несбалансированная Кузница",
+                image: BASE + "5002.jpg",
+                description: "Незеритовая экипировка с максимальными чарами всего за 1 изумруд.",
+                features: [
+                    "Незеритовая броня и инструменты",
+                    "Новые сделки жителя-кузнеца",
+                    "Максимальные чары",
+                    "Удобный подбор для выживания"
+                ],
+                info: [
+                    "Оригинальное название: OP Toolsmith",
+                    "Версия: Minecraft Bedrock",
+                    "Тип: Addon"
+                ],
+                download: BASE + "mod.mcaddon"
+            },
+            {
+                id: "guns",
+                name: "Современное оружие с разными стилями боя",
+                image: BASE + "102.jpg",
+                description: "Современное и классическое огнестрельное оружие с разными характеристиками и боеприпасами.",
+                features: [
+                    "Револьвер",
+                    "Пистолет",
+                    "Пистолет-пулемёт",
+                    "Двуствольный обрез",
+                    "Разные характеристики боя",
+                    "Разные типы боеприпасов"
+                ],
+                info: [
+                    "Название: TR’s Simple Guns",
+                    "Версия: Minecraft Bedrock",
+                    "Тип: Addon",
+                    "Боеприпасы: разные типы"
+                ],
+                download: BASE + "guns.mcpack"
+            },
+            {
+                id: "lada",
+                name: "Лада Веста",
+                image: BASE + "Lada.jpg",
+                description: "Собственная русская машина в Minecraft с открывающимися дверьми, капотом и багажником.",
+                features: [
+                    "Открываются двери, капот и багажник",
+                    "4 посадочных места",
+                    "Заводится с ключа",
+                    "Коробка передач",
+                    "Спидометр",
+                    "Коллизия",
+                    "Требуется бензин",
+                    "Есть музыка"
+                ],
+                info: [
+                    "Название: Лада Веста",
+                    "Версия: Minecraft Bedrock",
+                    "Тип: Addon",
+                    "Стиль: Автомобиль / транспорт"
+                ],
+                download: BASE + "Lada.mcaddon?download=1"
             }
-        });
-    });
+        ];
 
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Escape") {
-            document.querySelectorAll(".modal").forEach(function(modal) {
-                modal.classList.remove("active");
+        const savedKey = "minecraft_mods_saved";
+        let saved = JSON.parse(localStorage.getItem(savedKey) || "[]");
+
+        function isSaved(id) {
+            return saved.includes(id);
+        }
+
+        function saveToStorage() {
+            localStorage.setItem(savedKey, JSON.stringify(saved));
+        }
+
+        function updateSavedCount() {
+            document.getElementById("savedCount").textContent = saved.length;
+        }
+
+        function renderCard(mod) {
+            const buttonText = isSaved(mod.id) ? "✓ Сохранено" : "♡ Сохранить";
+            const buttonClass = isSaved(mod.id) ? "save-btn saved" : "save-btn";
+
+            return `
+                <article class="mod-card" data-id="${mod.id}">
+                    <div class="image-wrapper">
+                        <img src="${mod.image}" alt="${mod.name}" />
+                        <div class="image-overlay"></div>
+                        <div class="badge">MINECRAFT BEDROCK</div>
+                    </div>
+
+                    <div class="mod-info">
+                        <h2>${mod.name}</h2>
+                        <p>${mod.description}</p>
+
+                        <div class="card-actions">
+                            <span class="open-text" data-open="${mod.id}">Открыть описание →</span>
+                            <button class="${buttonClass}" type="button" data-save="${mod.id}">
+                                ${buttonText}
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderMods() {
+            const modsList = document.getElementById("modsList");
+            modsList.innerHTML = mods.map(renderCard).join("");
+
+            modsList.querySelectorAll("[data-open]").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    openDetail(mods.find(mod => mod.id === this.dataset.open));
+                });
             });
 
-            document.body.style.overflow = "";
-        }
-    });
-</script>
+            modsList.querySelectorAll("[data-save]").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    toggleSave(this.dataset.save, event);
+                });
+            });
 
-</body>
-</html>
+            modsList.querySelectorAll(".mod-card").forEach(card => {
+                card.addEventListener("click", function (event) {
+                    if (event.target.closest(".save-btn")) return;
+                    openDetail(mods.find(mod => mod.id === card.dataset.id));
+                });
+            });
+        }
+
+        function renderSaved() {
+            const savedList = document.getElementById("savedList");
+            const savedMods = mods.filter(mod => saved.includes(mod.id));
+
+            if (!savedMods.length) {
+                savedList.innerHTML = `
+                    <div class="empty">
+                        Пока нет сохраненных модов.<br>
+                        Нажми «Сохранить» на карточке мода.
+                    </div>
+                `;
+                return;
+            }
+
+            savedList.innerHTML = savedMods.map(renderCard).join("");
+
+            savedList.querySelectorAll("[data-open]").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    openDetail(mods.find(mod => mod.id === this.dataset.open));
+                });
+            });
+
+            savedList.querySelectorAll("[data-save]").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    toggleSave(this.dataset.save, event);
+                });
+            });
+
+            savedList.querySelectorAll(".mod-card").forEach(card => {
+                card.addEventListener("click", function (event) {
+                    if (event.target.closest(".save-btn")) return;
+                    openDetail(mods.find(mod => mod.id === card.dataset.id));
+                });
+            });
+        }
+
+        function toggleSave(modId, event) {
+            if (event) event.stopPropagation();
+
+            if (saved.includes(modId)) {
+                saved = saved.filter(item => item !== modId);
+            } else {
+                saved.push(modId);
+            }
+
+            localStorage.setItem(savedKey, JSON.stringify(saved));
+            renderMods();
+            renderSaved();
+            updateSavedCount();
+        }
+
+        function openDetail(mod) {
+            document.getElementById("detailImage").src = mod.image;
+            document.getElementById("detailImage").alt = mod.name;
+
+            document.getElementById("detailTitle").textContent = mod.name;
+            document.getElementById("detailDescription").textContent = mod.description;
+
+            document.getElementById("detailItems").innerHTML =
+                "<div class=\"items-title\">Функции</div>" +
+                "<div class=\"items\">" +
+                mod.features.map(item => `<div class=\"item\">${item}</div>`).join("") +
+                "</div>";
+
+            document.getElementById("detailInfo").innerHTML =
+                "<div class=\"info-title\">Информация</div>" +
+                mod.info.map(item => `<div>${item}</div>`).join("");
+
+            const downloadLink = document.getElementById("detailDownload");
+            downloadLink.href = mod.download;
+            downloadLink.download = mod.download.split("/").pop();
+
+            document.getElementById("detailModal").classList.add("active");
+            document.body.classList.add("modal-open");
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove("active");
+        }
+
+        function closeAllModals() {
+            closeModal("detailModal");
+            closeModal("savedModal");
+            document.body.classList.remove("modal-open");
+        }
+
+        d
