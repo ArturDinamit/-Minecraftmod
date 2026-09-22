@@ -1,890 +1,611 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minecraft Mods</title>
-
-  <style>
-    :root {
-      --bg: #060b09;
-      --bg-2: #0d1713;
-      --panel: rgba(18, 25, 22, 0.88);
-      --panel-2: rgba(24, 33, 29, 0.92);
-      --line: rgba(255,255,255,0.08);
-      --text: #edf4ef;
-      --muted: #a7b5af;
-      --green: #50e77b;
-      --green-2: #2ed66a;
-      --green-3: #93ffb4;
-      --blue: #6bc3ff;
-      --shadow: 0 22px 60px rgba(0,0,0,0.5);
-      --radius: 26px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% 15%, rgba(72, 255, 151, 0.13), transparent 22%),
-        radial-gradient(circle at 85% 80%, rgba(95, 202, 255, 0.12), transparent 26%),
-        linear-gradient(180deg, #050806 0%, #08100c 100%);
-    }
-
-    a { text-decoration: none; color: inherit; }
-
-    .hidden { display: none !important; }
-
-    /* AUTH SCREEN */
-    .auth-screen {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 28px;
-      background:
-        radial-gradient(circle at center, rgba(80, 231, 123, 0.12), transparent 38%),
-        #050806;
-    }
-
-    .auth-box {
-      width: min(430px, 100%);
-      background: rgba(12, 18, 16, 0.9);
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .auth-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(80,231,123,0.08), transparent 30%, rgba(88,194,255,0.08));
-      pointer-events: none;
-    }
-
-    .auth-head {
-      padding: 32px 28px 18px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .brand {
-      display: inline-block;
-      font-size: 29px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      color: white;
-    }
-
-    .brand .green {
-      color: var(--green);
-    }
-
-    .auth-head p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .auth-body {
-      position: relative;
-      z-index: 1;
-      padding: 0 28px 28px;
-    }
-
-    .auth-form {
-      display: grid;
-      gap: 14px;
-    }
-
-    .input-wrap {
-      display: grid;
-      gap: 8px;
-    }
-
-    .input-wrap label {
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .input-wrap input {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: white;
-      border-radius: 14px;
-      height: 52px;
-      padding: 0 16px;
-      font-size: 16px;
-      outline: none;
-      transition: 0.2s ease;
-    }
-
-    .input-wrap input:focus {
-      border-color: rgba(80, 231, 123, 0.6);
-      box-shadow: 0 0 0 3px rgba(80, 231, 123, 0.12);
-    }
-
-    .btn {
-      height: 52px;
-      border: none;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.22s ease;
-    }
-
-    .btn.primary {
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-2) 100%);
-      color: #05150b;
-      box-shadow: 0 12px 32px rgba(46, 214, 106, 0.28);
-    }
-
-    .btn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(46, 214, 106, 0.4);
-    }
-
-    .auth-toggle {
-      margin-top: 12px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .auth-toggle button {
-      background: none;
-      border: none;
-      color: var(--green-3);
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .auth-message {
-      min-height: 18px;
-      margin: 4px 0 0;
-      font-size: 13px;
-      color: #ffb0b0;
-    }
-
-    /* APP */
-    .app {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(16px);
-      background: rgba(6, 11, 9, 0.7);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .topbar-inner {
-      width: min(1180px, calc(100% - 24px));
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 18px 0;
-    }
-
-    .mini-brand {
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 0.4px;
-    }
-
-    .mini-brand .green {
-      color: var(--green);
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .user-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 14px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .user-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 18px rgba(80,231,123,0.8);
-    }
-
-    .logout-btn {
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .hero-section {
-      width: min(1180px, calc(100% - 24px));
-      margin: 0 auto;
-      padding: 34px 0 18px;
-    }
-
-    .hero {
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(18,26,22,0.9), rgba(14,22,18,0.96));
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      padding: 26px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: auto -10% -45% auto;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(80,231,123,0.2), transparent 60%);
-      pointer-events: none;
-    }
-
-    .hero-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-copy {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      background: rgba(80,231,123,0.08);
-      border: 1px solid rgba(80,231,123,0.2);
-      color: var(--green-3);
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .hero h1 {
-      margin: 16px 0 12px;
-      font-size: clamp(34px, 5vw, 62px);
-      line-height: 1;
-      letter-spacing: -0.06em;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, #fff, #b5ffd1, #50e77b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      max-width: 600px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .hero-panel {
-      width: min(330px, 100%);
-      background: rgba(255,255,255,0.025);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .mini-stat {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .mini-stat:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .mini-stat .label {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .mini-stat .value {
-      font-weight: 800;
-      color: white;
-    }
-
-    .toolbar {
-      width: min(1180px, calc(100% - 24px));
-      margin: 18px auto 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .search-wrap {
-      position: relative;
-      min-width: min(100%, 480px);
-      flex: 1;
-    }
-
-    .search-wrap input {
-      width: 100%;
-      height: 54px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
-      color: white;
-      border-radius: 14px;
-      padding: 0 18px 0 48px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    .search-wrap::before {
-      content: "⌕";
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 22px;
-    }
-
-    .toolbar-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .soft-btn {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      color: var(--text);
-      height: 42px;
-      border-radius: 12px;
-      padding: 0 14px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .catalog {
-      width: min(1180px, calc(100% - 24px));
-      margin: 24px auto 60px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .mod-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(18,24,22,0.9), rgba(14,20,17,0.93));
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: 0.28s ease;
-      cursor: pointer;
-    }
-
-    .mod-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(80,231,123,0.38);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.58);
-    }
-
-    .mod-image-wrap {
-      position: relative;
-      height: 260px;
-      overflow: hidden;
-    }
-
-    .mod-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.45s ease;
-    }
-
-    .mod-card:hover .mod-image-wrap img {
-      transform: scale(1.05);
-    }
-
-    .mod-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(5,9,7,0.88), transparent 55%);
-    }
-
-    .mod-badge {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      background: rgba(12,18,16,0.8);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.6px;
-      color: var(--green-3);
-    }
-
-    .mod-body {
-      padding: 22px 22px 20px;
-    }
-
-    .mod-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .mod-head h3 {
-      margin: 0;
-      font-size: clamp(20px, 2vw, 26px);
-      line-height: 1.2;
-    }
-
-    .mod-rating {
-      background: rgba(80,231,123,0.12);
-      color: var(--green-3);
-      border: 1px solid rgba(80,231,123,0.2);
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 7px 9px;
-    }
-
-    .mod-body p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 15px;
-    }
-
-    .mod-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .mod-type {
-      color: #d3f7de;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.55px;
-      text-transform: uppercase;
-    }
-
-    .mod-open {
-      color: var(--green-3);
-      font-weight: 800;
-    }
-
-    /* MODAL */
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 50;
-      display: none;
-      background: rgba(4, 8, 6, 0.88);
-      backdrop-filter: blur(12px);
-      padding: 18px;
-      overflow-y: auto;
-    }
-
-    .modal.active {
-      display: block;
-    }
-
-    .modal-panel {
-      width: min(980px, 100%);
-      margin: 0 auto;
-      background: linear-gradient(180deg, rgba(12,18,16,0.96), rgba(10,14,12,0.98));
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .modal-header .title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-    }
-
-    .close-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      color: white;
-      font-size: 26px;
-      cursor: pointer;
-    }
-
-    .modal-content {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 24px;
-      padding: 22px;
-    }
-
-    .modal-image {
-      width: 100%;
-      height: 420px;
-      object-fit: cover;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      display: block;
-      background: #111;
-    }
-
-    .modal-info {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .modal-info h2 {
-      margin: 0;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.1;
-      letter-spacing: -0.05em;
-    }
-
-    .modal-info p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 16px;
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .feature-list li {
-      position: relative;
-      padding: 12px 14px 12px 18px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: #dfeae6;
-      line-height: 1.45;
-    }
-
-    .feature-list li::before {
-      content: "◆";
-      position: absolute;
-      left: 10px;
-      top: 12px;
-      color: var(--green);
-      font-size: 12px;
-    }
-
-    .info-box {
-      padding: 16px 18px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.06);
-      display: grid;
-      gap: 6px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .info-box strong {
-      color: var(--green-3);
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .download-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 60px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #3ae66d, #25bf59);
-      color: #05150b;
-      font-weight: 900;
-      letter-spacing: 0.4px;
-      box-shadow: 0 16px 36px rgba(40, 214, 93, 0.28);
-      transition: 0.2s ease;
-    }
-
-    .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 42px rgba(40, 214, 93, 0.4);
-    }
-
-    .modal-note {
-      color: var(--muted);
-      font-size: 12px;
-      text-align: center;
-      margin-top: -8px;
-    }
-
-    @media (max-width: 920px) {
-      .catalog {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .hero-row,
-      .modal-content {
-        grid-template-columns: 1fr;
-        display: grid;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .catalog {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar-inner {
-        flex-wrap: wrap;
-      }
-
-      .hero {
-        padding: 18px;
-      }
-
-      .top-actions {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      .toolbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .search-wrap {
-        width: 100%;
-      }
-
-      .modal-image { height: 280px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Mods</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(0,255,120,.13), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0,180,255,.12), transparent 30%),
+                #070909;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: .07;
+            background-image:
+                linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 18px;
+            text-align: center;
+            background: rgba(8,10,10,.85);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 900;
+        }
+
+        .logo span {
+            color: #42e66c;
+        }
+
+        .hero {
+            padding: 45px 20px 30px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(35px, 9vw, 65px);
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #ffffff, #8cffaa, #35e96c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 18px auto 0;
+            color: #929a96;
+            font-size: 16px;
+        }
+
+        .container {
+            width: min(900px, calc(100% - 30px));
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        .mods {
+            display: grid;
+            gap: 25px;
+        }
+
+        .mod-card {
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 26px;
+            background: rgba(22,27,25,.88);
+            box-shadow: 0 25px 80px rgba(0,0,0,.45);
+            cursor: pointer;
+            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+        }
+
+        .mod-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(65,235,108,.4);
+            box-shadow: 0 30px 90px rgba(0,0,0,.6), 0 0 40px rgba(50,220,100,.08);
+        }
+
+        .mod-card:active {
+            transform: scale(.98);
+        }
+
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mod-card-image {
+            display: block;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform .6s ease;
+        }
+
+        .mod-card:hover .mod-card-image {
+            transform: scale(1.045);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(5,8,7,.9), transparent 55%);
+        }
+
+        .badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: rgba(20,25,22,.82);
+            border: 1px solid rgba(255,255,255,.12);
+            font-size: 13px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .mod-info {
+            padding: 22px;
+        }
+
+        .mod-info h2 {
+            margin: 0 0 10px;
+            font-size: 25px;
+        }
+
+        .mod-info p {
+            margin: 0;
+            color: #929a96;
+            line-height: 1.6;
+        }
+
+        .open-text {
+            margin-top: 20px;
+            color: #55ee79;
+            font-weight: bold;
+        }
+
+        .footer {
+            padding: 30px 20px 50px;
+            color: #4f5753;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+            padding: 20px 0 50px;
+            background: rgba(4,6,6,.98);
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            width: min(850px, calc(100% - 30px));
+            margin: 0 auto;
+        }
+
+        .close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            margin-left: auto;
+            border: 0;
+            border-radius: 50%;
+            background: #202523;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .close:hover {
+            background: #35d965;
+            color: #071009;
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            display: block;
+            width: 100%;
+            max-height: 500px;
+            margin-top: 15px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 25px;
+            object-fit: cover;
+            box-shadow: 0 30px 80px rgba(0,0,0,.55);
+        }
+
+        .description {
+            padding: 28px 5px;
+        }
+
+        .description h2 {
+            margin: 0 0 15px;
+            font-size: clamp(30px, 7vw, 45px);
+            font-weight: 900;
+        }
+
+        .description p {
+            color: #aeb5b1;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .items-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .items {
+            display: grid;
+            gap: 10px;
+        }
+
+        .item {
+            padding: 14px;
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 14px;
+            background: rgba(255,255,255,.035);
+            color: #d7ddd9;
+            line-height: 1.4;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 18px;
+            background: rgba(255,255,255,.035);
+            line-height: 1.8;
+        }
+
+        .info-title {
+            margin-bottom: 8px;
+            color: #52e873;
+            font-weight: bold;
+        }
+
+        .download {
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 17px;
+            background: linear-gradient(135deg, #36dc65, #20b94d);
+            color: #061009;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 900;
+            transition: .25s;
+        }
+
+        .download:hover {
+            background: #55ee79;
+            transform: translateY(-3px);
+        }
+
+        .download:active {
+            transform: scale(.98);
+        }
+
+        .note {
+            margin-top: 12px;
+            color: #626a66;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 35px 15px 25px;
+            }
+
+            .container {
+                width: calc(100% - 20px);
+            }
+
+            .mod-card-image {
+                height: 240px;
+            }
+
+            .modal-content {
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div id="authScreen" class="auth-screen">
-    <div class="auth-box">
-      <div class="auth-head">
-        <div class="brand">Minecraft <span class="green">Mods</span></div>
-        <p>Вход в библиотеку модов</p>
-      </div>
 
-      <div class="auth-body">
-        <form id="authForm" class="auth-form">
-          <div class="input-wrap">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="you@example.com" required />
-          </div>
-
-          <div class="input-wrap">
-            <label for="password">Пароль</label>
-            <input id="password" type="password" placeholder="••••••••" required />
-          </div>
-
-          <button id="submitBtn" class="btn primary" type="submit">Войти</button>
-
-          <div class="auth-toggle">
-            Нет аккаунта? <button type="button" id="switchModeBtn">Создать</button>
-          </div>
-
-          <div id="authMessage" class="auth-message"></div>
-        </form>
-      </div>
+<header class="header">
+    <div class="logo">
+        Minecraft <span>Mods</span>
     </div>
-  </div>
+</header>
 
-  <div id="app" class="app hidden">
-    <header class="topbar">
-      <div class="topbar-inner">
-        <div class="mini-brand">Minecraft <span class="green">Mods</span></div>
+<section class="hero">
+    <h1>Моды Minecraft</h1>
+    <p>Смотри моды, открывай описание и скачивай нужные файлы</p>
+</section>
 
-        <div class="top-actions">
-          <div class="user-pill"><span class="user-dot"></span><span id="userEmail">user@mail.com</span></div>
-          <button id="logoutBtn" class="logout-btn">Выйти</button>
+<main class="container">
+    <div class="mods">
+
+        <div class="mod-card" onclick="openModal('forgeModal')">
+            <div class="image-wrapper">
+                <img
+                    class="mod-card-image"
+                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
+                    alt="Несбалансированная Кузница"
+                >
+                <div class="image-overlay"></div>
+                <div class="badge">MINECRAFT BEDROCK</div>
+            </div>
+
+            <div class="mod-info">
+                <h2>Несбалансированная Кузница</h2>
+                <p>Незеритовая экипировка с максимальными чарами всего за 1 изумруд.</p>
+                <div class="open-text">Открыть описание →</div>
+            </div>
         </div>
-      </div>
-    </header>
 
-    <section class="hero-section">
-      <div class="hero">
-        <div class="hero-row">
-          <div class="hero-copy">
-            <div class="eyebrow">Bedrock Edition</div>
+        <div class="mod-card" onclick="openModal('gunsModal')">
+            <div class="image-wrapper">
+                <img
+                    class="mod-card-image"
+                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
+                    alt="Современное оружие с разными стилями боя"
+                >
+                <div class="image-overlay"></div>
+                <div class="badge">MINECRAFT BEDROCK</div>
+            </div>
 
-            <h1>Скачивай <span>лучшие моды</span> для Minecraft</h1>
+            <div class="mod-info">
+                <h2>Современное оружие с разными стилями боя</h2>
+                <p>Современное и классическое огнестрельное оружие с разными характеристиками и боеприпасами.</p>
+                <div class="open-text">Открыть описание →</div>
+            </div>
+        </div>
+
+        <div class="mod-card" onclick="openModal('ladaModal')">
+            <div class="image-wrapper">
+                <img
+                    class="mod-card-image"
+                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/lada.jpg"
+                    alt="Лада Веста"
+                >
+                <div class="image-overlay"></div>
+                <div class="badge">MINECRAFT BEDROCK</div>
+            </div>
+
+            <div class="mod-info">
+                <h2>Лада Веста</h2>
+                <p>У тебя появится собственная русская машина в Minecraft с открывающимися дверьми, капотом и багажником.</p>
+                <div class="open-text">Открыть описание →</div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer">
+    Minecraft Mods • Bedrock Edition
+</footer>
+
+<div class="modal" id="forgeModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('forgeModal')">×</button>
+
+        <img
+            class="modal-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
+            alt="Несбалансированная Кузница"
+        >
+
+        <div class="description">
+            <h2>Несбалансированная Кузница</h2>
 
             <p>
-              Большая библиотека модов для выживания, транспорта, оружия и приключений.
-              Все моды находятся в одном месте, удобно, быстро и без лишнего шума.
+                Если тебе не хочется тратить много опыта и ресурсов на получение хорошей экипировки,
+                мод OP Toolsmith даст другой вариант развития.
             </p>
 
-            <div class="hero-badges">
-              <div class="chip">3 модa</div>
-              <div class="chip">Fast download</div>
-              <div class="chip">Skins + Addons</div>
-            </div>
-          </div>
+            <p>
+                Житель-кузнец получит новые сделки, среди которых есть незеритовая броня
+                и инструменты с максимальными чарами.
+            </p>
 
-          <div class="hero-panel">
-            <div class="mini-stat">
-              <span class="label">Моды</span>
-              <span class="value">3</span>
-            </div>
-
-            <div class="mini-stat">
-              <span class="label">Формат</span>
-              <span class="value">.mcaddon</span>
+            <div class="info-box">
+                <div class="info-title">Информация</div>
+                <div>Оригинальное название: OP Toolsmith</div>
+                <div>Версия: Minecraft Bedrock</div>
+                <div>Тип: Addon</div>
             </div>
 
-            <div class="mini-stat">
-              <span class="label">Платформа</span>
-              <span class="value">MCPE</span>
+            <a
+                class="download"
+                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/mod.mcaddon"
+                download="mod.mcaddon"
+            >
+                ↓ Скачать мод
+            </a>
+
+            <div class="note">
+                Файл mod.mcaddon для Minecraft Bedrock
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <div class="toolbar">
-      <div class="search-wrap">
-        <input id="searchInput" type="text" placeholder="Поиск по названию..." />
-      </div>
-
-      <div class="toolbar-actions">
-        <button class="soft-btn" type="button" id="showAllBtn">Все</button>
-      </div>
     </div>
+</div>
 
-    <main id="catalog" class="catalog"></main>
-  </div>
+<div class="modal" id="gunsModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('gunsModal')">×</button>
 
-  <div id="modModal" class="modal" aria-hidden="true">
-    <div class="modal-panel">
-      <div class="modal-header">
-        <div class="title">Описание мода</div>
-        <button class="close-btn" type="button" id="closeModalBtn">×</button>
-      </div>
+        <img
+            class="modal-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
+            alt="Современное оружие с разными стилями боя"
+        >
 
-      <div class="modal-content">
-        <img id="modalImage" class="modal-image" src="" alt="" />
+        <div class="description">
+            <h2>Современное оружие с разными стилями боя</h2>
 
-        <div class="modal-info">
-          <h2 id="modalTitle">Название</h2>
+            <p>
+                Добавь в выживание современное и классическое огнестрельное оружие
+                с разными характеристиками и типами боеприпасов.
+            </p>
 
-          <p id="modalDescription"></p>
+            <p>
+                В Minecraft появится огнестрельное оружие с разными типами боеприпасов
+                и особенностями стрельбы.
+            </p>
 
-          <ul id="modalFeatures" class="feature-list"></ul>
+            <p>
+                Мод TR’s Simple Guns включает Револьвер, Пистолет,
+                Пистолет-пулемёт и Двуствольный обрез.
+            </p>
 
-          <div id="modalInfoBox" class="info-box"></div>
+            <p>
+                Характеристики отличаются по урону, скорострельности, дальности,
+                точности и отдаче.
+            </p>
 
-          <a id="downloadLink" class="download-btn" href="#" download="">↓ Скачать мод</a>
-          <div class="modal-note">Файл загружается в формате Minecraft Bedrock</div>
+            <div class="items-title">Оружие в моде</div>
+
+            <div class="items">
+                <div class="item">Револьвер</div>
+                <div class="item">Пистолет</div>
+                <div class="item">Пистолет-пулемёт</div>
+                <div class="item">Двуствольный обрез</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-title">Информация</div>
+                <div>Название: TR’s Simple Guns</div>
+                <div>Версия: Minecraft Bedrock</div>
+                <div>Тип: Addon</div>
+                <div>Боеприпасы: разные типы</div>
+            </div>
+
+            <a
+                class="download"
+                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/guns.mcpack"
+                download="guns.mcpack"
+            >
+                ↓ Скачать мод
+            </a>
+
+            <div class="note">
+                Файл guns.mcpack для Minecraft Bedrock
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script>
-    const STORAGE_KEY = "mcmods_users";
-    const CURRENT_USER_KEY =
+<div class="modal" id="ladaModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('ladaModal')">×</button>
+
+        <img
+            class="modal-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/lada.jpg"
+            alt="Лада Веста"
+        >
+
+        <div class="description">
+            <h2>Лада Веста</h2>
+
+            <p>
+                Кто из нас не хотел бы получить собственную Ладу Весту?
+                Одна из самых популярных русских машин появится в MCPE
+                с модом Лада Веста.
+            </p>
+
+            <p>
+                Ты можешь открыть двери, капот и багажник, посадить до четырёх
+                игроков и завести машину с ключа.
+            </p>
+
+            <div class="items-title">Функции</div>
+
+            <div class="items">
+                <div class="item">Доступны разные цвета, окраски Такси и ДПС</div>
+                <div class="item">Открываются все двери, капот и багажник</div>
+                <div class="item">4 посадочных места</div>
+                <div class="item">Заводится с ключа</div>
+                <div class="item">Есть коробка передач</div>
+                <div class="item">Анимации дворников, выхлопа, физики</div>
+                <div class="item">Спидометр</div>
+                <div class="item">Коллизия</div>
+                <div class="item">Требуется бензин</div>
+                <div class="item">Есть музыка</div>
+                <div class="item">Для получения нужен творческий режим</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-title">Информация</div>
+                <div>Название: Лада Веста</div>
+                <div>Версия: Minecraft Bedrock</div>
+                <div>Тип: Addon</div>
+                <div>Стиль: Автомобиль / транспорт</div>
+            </div>
+
+            <a
+                class="download"
+                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/lada.mcaddon"
+                download="lada.mcaddon"
+            >
+                ↓ Скачать мод
+            </a>
+
+            <div class="note">
+                Файл lada.mcaddon для Minecraft Bedrock
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(id) {
+        document.getElementById(id).classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".modal").forEach(function(modal) {
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                closeModal(modal.id);
+            }
+        });
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            document.querySelectorAll(".modal").forEach(function(modal) {
+                modal.classList.remove("active");
+            });
+
+            document.body.style.overflow = "";
+        }
+    });
+</script>
+
+</body>
+</html>
