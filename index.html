@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Minecraft Mods</title>
 
     <style>
@@ -17,16 +16,8 @@
             color: white;
             font-family: Arial, Helvetica, sans-serif;
             background:
-                radial-gradient(
-                    circle at 20% 10%,
-                    rgba(0, 255, 120, 0.13),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 80% 80%,
-                    rgba(0, 180, 255, 0.12),
-                    transparent 30%
-                ),
+                radial-gradient(circle at 20% 10%, rgba(0,255,120,.13), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0,180,255,.12), transparent 30%),
                 #070909;
         }
 
@@ -36,17 +27,10 @@
             inset: 0;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.08;
+            opacity: .07;
             background-image:
-                linear-gradient(
-                    rgba(255, 255, 255, 0.15) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255, 255, 255, 0.15) 1px,
-                    transparent 1px
-                );
+                linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
@@ -56,8 +40,8 @@
             z-index: 100;
             padding: 18px;
             text-align: center;
-            background: rgba(8, 10, 10, 0.85);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(8,10,10,.85);
+            border-bottom: 1px solid rgba(255,255,255,.08);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
         }
@@ -81,20 +65,15 @@
             font-size: clamp(35px, 9vw, 65px);
             font-weight: 900;
             line-height: 1;
-            background: linear-gradient(
-                135deg,
-                #ffffff,
-                #8cffaa,
-                #35e96c
-            );
+            background: linear-gradient(135deg, #ffffff, #8cffaa, #35e96c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
         .hero p {
-            max-width: 600px;
             margin: 18px auto 0;
+            max-width: 600px;
             color: #929a96;
             font-size: 16px;
         }
@@ -112,27 +91,22 @@
 
         .mod-card {
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255,255,255,.08);
             border-radius: 26px;
-            background: rgba(22, 27, 25, 0.88);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+            background: rgba(22,27,25,.88);
+            box-shadow: 0 25px 80px rgba(0,0,0,.45);
             cursor: pointer;
-            transition:
-                transform 0.3s ease,
-                border-color 0.3s ease,
-                box-shadow 0.3s ease;
+            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
         }
 
         .mod-card:hover {
-            border-color: rgba(65, 235, 108, 0.4);
-            box-shadow:
-                0 30px 90px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(50, 220, 100, 0.08);
             transform: translateY(-7px);
+            border-color: rgba(65,235,108,.4);
+            box-shadow: 0 30px 90px rgba(0,0,0,.6), 0 0 40px rgba(50,220,100,.08);
         }
 
         .mod-card:active {
-            transform: scale(0.98);
+            transform: scale(.98);
         }
 
         .image-wrapper {
@@ -145,7 +119,7 @@
             width: 100%;
             height: 300px;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform .6s ease;
         }
 
         .mod-card:hover .mod-card-image {
@@ -156,11 +130,7 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background: linear-gradient(
-                to top,
-                rgba(5, 8, 7, 0.9),
-                transparent 55%
-            );
+            background: linear-gradient(to top, rgba(5,8,7,.9), transparent 55%);
         }
 
         .badge {
@@ -168,9 +138,9 @@
             top: 18px;
             left: 18px;
             padding: 8px 13px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 999px;
-            background: rgba(20, 25, 22, 0.82);
+            background: rgba(20,25,22,.82);
+            border: 1px solid rgba(255,255,255,.12);
             font-size: 13px;
             font-weight: bold;
             backdrop-filter: blur(10px);
@@ -204,8 +174,6 @@
             font-size: 13px;
         }
 
-        /* ОКНО ОПИСАНИЯ */
-
         .modal {
             position: fixed;
             inset: 0;
@@ -213,7 +181,7 @@
             display: none;
             overflow-y: auto;
             padding: 20px 0 50px;
-            background: rgba(4, 6, 6, 0.98);
+            background: rgba(4,6,6,.98);
         }
 
         .modal.active {
@@ -238,7 +206,7 @@
             color: white;
             font-size: 25px;
             cursor: pointer;
-            transition: 0.25s;
+            transition: .25s;
         }
 
         .close:hover {
@@ -252,10 +220,10 @@
             width: 100%;
             max-height: 500px;
             margin-top: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255,255,255,.08);
             border-radius: 25px;
             object-fit: cover;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+            box-shadow: 0 30px 80px rgba(0,0,0,.55);
         }
 
         .description {
@@ -288,9 +256,9 @@
 
         .item {
             padding: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255,255,255,.06);
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.035);
+            background: rgba(255,255,255,.035);
             color: #d7ddd9;
             line-height: 1.4;
         }
@@ -298,9 +266,9 @@
         .info-box {
             margin-top: 25px;
             padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255,255,255,.07);
             border-radius: 18px;
-            background: rgba(255, 255, 255, 0.035);
+            background: rgba(255,255,255,.035);
             line-height: 1.8;
         }
 
@@ -316,22 +284,22 @@
             margin-top: 25px;
             padding: 18px;
             border-radius: 17px;
-            background: linear-gradient(
-                135deg,
-                #36dc65,
-                #20b94d
-            );
+            background: linear-gradient(135deg, #36dc65, #20b94d);
             color: #061009;
             text-align: center;
             text-decoration: none;
             font-size: 18px;
             font-weight: 900;
-            transition: 0.25s;
+            transition: .25s;
         }
 
         .download:hover {
             background: #55ee79;
             transform: translateY(-3px);
+        }
+
+        .download:active {
+            transform: scale(.98);
         }
 
         .note {
@@ -353,3 +321,212 @@
             .mod-card-image {
                 height: 240px;
             }
+
+            .modal-content {
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        Minecraft <span>Mods</span>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>Моды Minecraft</h1>
+    <p>Смотри моды, открывай описание и скачивай нужные файлы</p>
+</section>
+
+<main class="container">
+    <div class="mods">
+
+        <div class="mod-card" onclick="openModal('forgeModal')">
+            <div class="image-wrapper">
+                <img
+                    class="mod-card-image"
+                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
+                    alt="Несбалансированная Кузница"
+                >
+                <div class="image-overlay"></div>
+                <div class="badge">MINECRAFT BEDROCK</div>
+            </div>
+
+            <div class="mod-info">
+                <h2>Несбалансированная Кузница</h2>
+                <p>Незеритовая экипировка с максимальными чарами всего за 1 изумруд.</p>
+                <div class="open-text">Открыть описание →</div>
+            </div>
+        </div>
+
+        <div class="mod-card" onclick="openModal('gunsModal')">
+            <div class="image-wrapper">
+                <img
+                    class="mod-card-image"
+                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
+                    alt="Современное оружие с разными стилями боя"
+                >
+                <div class="image-overlay"></div>
+                <div class="badge">MINECRAFT BEDROCK</div>
+            </div>
+
+            <div class="mod-info">
+                <h2>Современное оружие с разными стилями боя</h2>
+                <p>Современное и классическое огнестрельное оружие с разными характеристиками и боеприпасами.</p>
+                <div class="open-text">Открыть описание →</div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer">
+    Minecraft Mods • Bedrock Edition
+</footer>
+
+<div class="modal" id="forgeModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('forgeModal')">×</button>
+
+        <img
+            class="modal-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
+            alt="Несбалансированная Кузница"
+        >
+
+        <div class="description">
+            <h2>Несбалансированная Кузница</h2>
+
+            <p>
+                Если тебе не хочется тратить много опыта и ресурсов на получение хорошей экипировки,
+                мод OP Toolsmith даст другой вариант развития.
+            </p>
+
+            <p>
+                Житель-кузнец получит новые сделки, среди которых есть незеритовая броня
+                и инструменты с максимальными чарами.
+            </p>
+
+            <div class="info-box">
+                <div class="info-title">Информация</div>
+                <div>Оригинальное название: OP Toolsmith</div>
+                <div>Версия: Minecraft Bedrock</div>
+                <div>Тип: Addon</div>
+            </div>
+
+            <a
+                class="download"
+                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/mod.mcaddon"
+                download="mod.mcaddon"
+            >
+                ↓ Скачать мод
+            </a>
+
+            <div class="note">
+                Файл mod.mcaddon для Minecraft Bedrock
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="gunsModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('gunsModal')">×</button>
+
+        <img
+            class="modal-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
+            alt="Современное оружие с разными стилями боя"
+        >
+
+        <div class="description">
+            <h2>Современное оружие с разными стилями боя</h2>
+
+            <p>
+                Добавь в выживание современное и классическое огнестрельное оружие
+                с разными характеристиками и типами боеприпасов.
+            </p>
+
+            <p>
+                В Minecraft появится огнестрельное оружие с разными типами боеприпасов
+                и особенностями стрельбы.
+            </p>
+
+            <p>
+                Мод TR’s Simple Guns включает Револьвер, Пистолет,
+                Пистолет-пулемёт и Двуствольный обрез.
+            </p>
+
+            <p>
+                Характеристики отличаются по урону, скорострельности, дальности,
+                точности и отдаче.
+            </p>
+
+            <div class="items-title">Оружие в моде</div>
+
+            <div class="items">
+                <div class="item">Револьвер</div>
+                <div class="item">Пистолет</div>
+                <div class="item">Пистолет-пулемёт</div>
+                <div class="item">Двуствольный обрез</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-title">Информация</div>
+                <div>Название: TR’s Simple Guns</div>
+                <div>Версия: Minecraft Bedrock</div>
+                <div>Тип: Addon</div>
+                <div>Боеприпасы: разные типы</div>
+            </div>
+
+            <a
+                class="download"
+                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/guns.mcpack"
+                download="guns.mcpack"
+            >
+                ↓ Скачать мод
+            </a>
+
+            <div class="note">
+                Файл guns.mcpack для Minecraft Bedrock
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(id) {
+        document.getElementById(id).classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".modal").forEach(function(modal) {
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                closeModal(modal.id);
+            }
+        });
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            document.querySelectorAll(".modal").forEach(function(modal) {
+                modal.classList.remove("active");
+            });
+
+            document.body.style.overflow = "";
+        }
+    });
+</script>
+
+</body>
+</html>
