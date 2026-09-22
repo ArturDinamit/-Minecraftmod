@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Minecraft Mods</title>
 
     <style>
@@ -11,61 +10,26 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             margin: 0;
             min-height: 100vh;
             color: white;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
             background:
-                radial-gradient(
-                    circle at 20% 10%,
-                    rgba(0, 255, 120, 0.13),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 80% 80%,
-                    rgba(0, 180, 255, 0.12),
-                    transparent 30%
-                ),
+                radial-gradient(circle at 20% 10%, rgba(0, 255, 120, .13), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0, 180, 255, .12), transparent 30%),
                 #070909;
         }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.08;
-            background-image:
-                linear-gradient(
-                    rgba(255, 255, 255, 0.15) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255, 255, 255, 0.15) 1px,
-                    transparent 1px
-                );
-            background-size: 40px 40px;
-        }
-
-        /* ШАПКА */
 
         .header {
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 10;
             padding: 20px;
             text-align: center;
-            background: rgba(8, 10, 10, 0.82);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            background: rgba(8, 10, 10, .9);
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            backdrop-filter: blur(15px);
         }
 
         .logo {
@@ -77,8 +41,6 @@
             color: #42e66c;
         }
 
-        /* ЗАГОЛОВОК */
-
         .hero {
             padding: 45px 20px 30px;
             text-align: center;
@@ -87,88 +49,59 @@
         .hero h1 {
             margin: 0;
             font-size: clamp(35px, 9vw, 65px);
-            font-weight: 900;
             line-height: 1;
-            background: linear-gradient(
-                135deg,
-                #ffffff,
-                #8cffaa,
-                #35e96c
-            );
+            background: linear-gradient(135deg, #fff, #8cffaa, #35e96c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
         .hero p {
-            max-width: 600px;
-            margin: 18px auto 0;
             color: #929a96;
-            font-size: 16px;
         }
-
-        /* КОНТЕЙНЕР */
 
         .container {
             width: min(900px, calc(100% - 30px));
-            margin: 0 auto;
-            padding-bottom: 60px;
+            margin: auto;
+            padding-bottom: 50px;
         }
 
-        /* КАРТОЧКА МОДА */
+        .mods {
+            display: grid;
+            gap: 25px;
+        }
 
         .mod-card {
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, .1);
             border-radius: 26px;
-            background: rgba(22, 27, 25, 0.86);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+            background: rgba(22, 27, 25, .9);
             cursor: pointer;
-            transition:
-                transform 0.3s ease,
-                border-color 0.3s ease,
-                box-shadow 0.3s ease;
-            animation: appear 0.6s ease;
+            transition: .3s;
         }
 
         .mod-card:hover {
-            border-color: rgba(65, 235, 108, 0.4);
-            box-shadow:
-                0 30px 90px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(50, 220, 100, 0.08);
-            transform: translateY(-7px);
+            transform: translateY(-6px);
+            border-color: rgba(65, 235, 108, .45);
         }
-
-        .mod-card:active {
-            transform: scale(0.98);
-        }
-
-        /* КАРТИНКА */
 
         .image-wrapper {
             position: relative;
-            overflow: hidden;
         }
 
-        .mod-card-image {
+        .mod-card img {
             display: block;
             width: 100%;
-            height: 330px;
+            height: 300px;
             object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .mod-card:hover .mod-card-image {
-            transform: scale(1.045);
         }
 
         .image-overlay {
             position: absolute;
             inset: 0;
-            pointer-events: none;
             background: linear-gradient(
                 to top,
-                rgba(5, 8, 7, 0.9),
+                rgba(5, 8, 7, .9),
                 transparent 55%
             );
         }
@@ -178,23 +111,20 @@
             top: 18px;
             left: 18px;
             padding: 8px 13px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 999px;
-            background: rgba(20, 25, 22, 0.8);
+            background: rgba(20, 25, 22, .85);
+            border: 1px solid rgba(255, 255, 255, .15);
             font-size: 13px;
             font-weight: bold;
-            backdrop-filter: blur(10px);
         }
-
-        /* ИНФОРМАЦИЯ КАРТОЧКИ */
 
         .mod-info {
             padding: 22px;
         }
 
         .mod-info h2 {
-            margin: 0 0 8px;
-            font-size: 27px;
+            margin: 0 0 10px;
+            font-size: 25px;
         }
 
         .mod-info p {
@@ -204,192 +134,10 @@
         }
 
         .open-text {
-            display: inline-flex;
-            gap: 8px;
-            align-items: center;
             margin-top: 20px;
             color: #55ee79;
             font-weight: bold;
         }
-
-        /* МОДАЛЬНОЕ ОКНО */
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            display: none;
-            overflow-y: auto;
-            background:
-                radial-gradient(
-                    circle at 50% 0%,
-                    rgba(48, 230, 100, 0.1),
-                    transparent 35%
-                ),
-                rgba(4, 6, 6, 0.98);
-            animation: fadeIn 0.25s ease;
-        }
-
-        .modal.active {
-            display: block;
-        }
-
-        .modal-content {
-            width: min(850px, calc(100% - 30px));
-            min-height: 100vh;
-            margin: 0 auto;
-            padding: 20px 0 50px;
-        }
-
-        /* КНОПКА ЗАКРЫТИЯ */
-
-        .close {
-            position: sticky;
-            top: 15px;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            margin-left: auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            background: rgba(30, 35, 33, 0.85);
-            color: white;
-            font-size: 25px;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .close:hover {
-            background: #35d965;
-            color: #071009;
-            transform: rotate(90deg);
-        }
-
-        /* КАРТИНКА В ОПИСАНИИ */
-
-        .modal-image {
-            display: block;
-            width: 100%;
-            max-height: 500px;
-            margin-top: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 25px;
-            object-fit: cover;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-        }
-
-        /* ОПИСАНИЕ */
-
-        .description {
-            padding: 28px 5px;
-        }
-
-        .description h2 {
-            margin: 0 0 14px;
-            font-size: clamp(30px, 7vw, 45px);
-            font-weight: 900;
-        }
-
-        .description p {
-            color: #aeb5b1;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        /* СПИСОК ПРЕДМЕТОВ */
-
-        .items-title {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 22px;
-            font-weight: 900;
-        }
-
-        .items {
-            display: grid;
-            gap: 10px;
-        }
-
-        .item {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            padding: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.035);
-            color: #d7ddd9;
-            line-height: 1.4;
-        }
-
-        .item::before {
-            content: "◆";
-            flex-shrink: 0;
-            color: #4be972;
-            font-size: 11px;
-        }
-
-        /* ИНФОРМАЦИЯ */
-
-        .info-box {
-            margin-top: 25px;
-            padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.035);
-            line-height: 1.8;
-        }
-
-        .info-box-title {
-            margin-bottom: 8px;
-            color: #52e873;
-            font-weight: bold;
-        }
-
-        /* КНОПКА СКАЧИВАНИЯ */
-
-        .download {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            margin-top: 25px;
-            padding: 18px;
-            border-radius: 17px;
-            background: linear-gradient(
-                135deg,
-                #36dc65,
-                #20b94d
-            );
-            color: #061009;
-            text-align: center;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 900;
-            box-shadow: 0 12px 30px rgba(40, 210, 90, 0.2);
-            transition: 0.25s;
-        }
-
-        .download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 18px 40px rgba(40, 210, 90, 0.3);
-        }
-
-        .download:active {
-            transform: scale(0.98);
-        }
-
-        .note {
-            margin-top: 13px;
-            color: #626a66;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        /* ПОДВАЛ */
 
         .footer {
             padding: 30px 20px 50px;
@@ -398,55 +146,135 @@
             font-size: 13px;
         }
 
-        /* АНИМАЦИИ */
+        /* ОКНО ОПИСАНИЯ */
 
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+            padding: 20px 0 50px;
+            background: rgba(4, 6, 6, .98);
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        .modal.active {
+            display: block;
         }
 
-        /* ТЕЛЕФОН */
+        .modal-content {
+            width: min(850px, calc(100% - 30px));
+            margin: auto;
+        }
+
+        .close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            margin-left: auto;
+            border: 0;
+            border-radius: 50%;
+            background: #202523;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            background: #35d965;
+            color: #071009;
+        }
+
+        .modal-image {
+            display: block;
+            width: 100%;
+            max-height: 500px;
+            margin-top: 15px;
+            border-radius: 25px;
+            object-fit: cover;
+        }
+
+        .description {
+            padding: 25px 5px;
+        }
+
+        .description h2 {
+            margin: 0 0 15px;
+            font-size: clamp(30px, 7vw, 45px);
+        }
+
+        .description p {
+            color: #aeb5b1;
+            line-height: 1.7;
+        }
+
+        .items-title {
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .items {
+            display: grid;
+            gap: 10px;
+        }
+
+        .item {
+            padding: 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .05);
+            color: #d7ddd9;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .05);
+            line-height: 1.8;
+        }
+
+        .info-title {
+            margin-bottom: 8px;
+            color: #52e873;
+            font-weight: bold;
+        }
+
+        .download {
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 17px;
+            background: linear-gradient(135deg, #36dc65, #20b94d);
+            color: #061009;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .note {
+            margin-top: 12px;
+            color: #626a66;
+            text-align: center;
+            font-size: 12px;
+        }
 
         @media (max-width: 600px) {
-            .hero {
-                padding: 35px 15px 25px;
-            }
-
             .container {
                 width: calc(100% - 20px);
             }
 
-            .mod-card-image {
-                height: 250px;
-            }
-
-            .mod-info {
-                padding: 18px;
+            .mod-card img {
+                height: 240px;
             }
 
             .modal-content {
                 width: calc(100% - 20px);
-            }
-
-            .modal-image {
-                border-radius: 20px;
             }
         }
     </style>
@@ -454,224 +282,224 @@
 
 <body>
 
-    <header class="header">
-        <div class="logo">
-            Minecraft <span>Mods</span>
-        </div>
-    </header>
+<header class="header">
+    <div class="logo">
+        Minecraft <span>Mods</span>
+    </div>
+</header>
 
-    <section class="hero">
-        <h1>Моды Minecraft</h1>
+<section class="hero">
+    <h1>Моды Minecraft</h1>
+    <p>Смотри моды, открывай описание и скачивай нужные файлы</p>
+</section>
 
-        <p>
-            Смотри моды, читай описание и скачивай их прямо с сайта
-        </p>
-    </section>
+<main class="container">
+    <div class="mods">
 
-    <main class="container">
+        <!-- ПЕРВЫЙ МОД -->
 
-        <!-- КАРТОЧКА МОДА -->
-
-        <div class="mod-card" onclick="openMod()">
-
+        <div class="mod-card" onclick="openModal('forge-modal')">
             <div class="image-wrapper">
-
                 <img
-                    class="mod-card-image"
                     src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
                     alt="Несбалансированная Кузница"
                 >
-
                 <div class="image-overlay"></div>
-
-                <div class="badge">
-                    MINECRAFT BEDROCK
-                </div>
-
+                <div class="badge">MINECRAFT BEDROCK</div>
             </div>
 
             <div class="mod-info">
-
-                <h2>
-                    Несбалансированная Кузница
-                </h2>
-
+                <h2>Несбалансированная Кузница</h2>
                 <p>
                     Незеритовая экипировка с максимальными чарами
                     всего за 1 изумруд.
                 </p>
-
-                <div class="open-text">
-                    Открыть описание →
-                </div>
-
+                <div class="open-text">Открыть описание →</div>
             </div>
-
         </div>
 
-    </main>
+        <!-- ВТОРОЙ МОД -->
 
-    <footer class="footer">
-        Minecraft Mods • Bedrock Edition
-    </footer>
-
-    <!-- ОПИСАНИЕ МОДА -->
-
-    <div class="modal" id="modModal">
-
-        <div class="modal-content">
-
-            <button class="close" onclick="closeMod()">
-                ×
-            </button>
-
-            <img
-                class="modal-image"
-                src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
-                alt="Несбалансированная Кузница"
-            >
-
-            <div class="description">
-
-                <h2>
-                    Несбалансированная Кузница
-                </h2>
-
-                <p>
-                    Если тебе не хочется тратить много опыта и ресурсов
-                    на получение хорошей экипировки, мод OP Toolsmith
-                    даст другой вариант развития.
-                </p>
-
-                <p>
-                    Житель-кузнец получит новые сделки, среди которых есть
-                    незеритовая броня и инструменты с максимальными чарами.
-                </p>
-
-                <p>
-                    За каждый особый предмет достаточно заплатить
-                    всего один изумруд.
-                </p>
-
-                <div class="items-title">
-                    Доступные вещи
-                </div>
-
-                <div class="items">
-
-                    <div class="item">
-                        Максимальный зачарованный незеритовый шлем —
-                        1 изумруд
-                    </div>
-
-                    <div class="item">
-                        Максимальный зачарованный незеритовый нагрудник —
-                        1 изумруд
-                    </div>
-
-                    <div class="item">
-                        Максимальные зачарованные незеритовые поножи —
-                        1 изумруд
-                    </div>
-
-                    <div class="item">
-                        Максимально зачарованные незеритовые сапоги —
-                        1 изумруд
-                    </div>
-
-                    <div class="item">
-                        Максимально зачарованный незеритовый меч —
-                        1 изумруд
-                    </div>
-
-                    <div class="item">
-                        Максимальная зачарованная незеритовая кирка —
-                        1 изумруд
-                    </div>
-
-                    <div class="item">
-                        Максимально зачарованный незеритовый топор —
-                        1 изумруд
-                    </div>
-
-                    <div class="item">
-                        Тотем Бессмертия —
-                        1 изумруд
-                    </div>
-
-                </div>
-
-                <div class="info-box">
-
-                    <div class="info-box-title">
-                        Информация
-                    </div>
-
-                    <div>
-                        Название: Несбалансированная Кузница
-                    </div>
-
-                    <div>
-                        Оригинальное название: OP Toolsmith
-                    </div>
-
-                    <div>
-                        Версия: Minecraft Bedrock
-                    </div>
-
-                    <div>
-                        Тип: Addon
-                    </div>
-
-                </div>
-
-                <!-- КНОПКА ВНУТРИ ОПИСАНИЯ -->
-
-                <a
-                    class="download"
-                    href="mod.mcaddon"
-                    download="mod.mcaddon"
+        <div class="mod-card" onclick="openModal('guns-modal')">
+            <div class="image-wrapper">
+                <img
+                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
+                    alt="Современное оружие с разными стилями боя"
                 >
-                    ↓ Скачать мод
-                </a>
-
-                <div class="note">
-                    Файл .mcaddon для Minecraft Bedrock
-                </div>
-
+                <div class="image-overlay"></div>
+                <div class="badge">MINECRAFT BEDROCK</div>
             </div>
 
+            <div class="mod-info">
+                <h2>Современное оружие с разными стилями боя</h2>
+                <p>
+                    Современное и классическое огнестрельное оружие
+                    с разными характеристиками и боеприпасами.
+                </p>
+                <div class="open-text">Открыть описание →</div>
+            </div>
         </div>
 
     </div>
+</main>
 
-    <script>
-        const modal = document.getElementById("modModal");
+<footer class="footer">
+    Minecraft Mods • Bedrock Edition
+</footer>
 
-        function openMod() {
-            modal.classList.add("active");
-            document.body.style.overflow = "hidden";
-        }
+<!-- ОПИСАНИЕ ПЕРВОГО МОДА -->
 
-        function closeMod() {
-            modal.classList.remove("active");
-            document.body.style.overflow = "";
-        }
+<div class="modal" id="forge-modal">
+    <div class="modal-content">
 
-        // Закрытие по клавише Escape
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                closeMod();
-            }
-        });
+        <button class="close" onclick="closeModal('forge-modal')">
+            ×
+        </button>
 
-        // Закрытие при нажатии на тёмный фон
+        <img
+            class="modal-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
+            alt="Несбалансированная Кузница"
+        >
+
+        <div class="description">
+            <h2>Несбалансированная Кузница</h2>
+
+            <p>
+                Если тебе не хочется тратить много опыта и ресурсов
+                на получение хорошей экипировки, мод OP Toolsmith
+                даст другой вариант развития.
+            </p>
+
+            <p>
+                Житель-кузнец получит новые сделки с незеритовой бронёй
+                и инструментами с максимальными чарами.
+            </p>
+
+            <div class="info-box">
+                <div class="info-title">Информация</div>
+                <div>Оригинальное название: OP Toolsmith</div>
+                <div>Версия: Minecraft Bedrock</div>
+                <div>Тип: Addon</div>
+            </div>
+
+            <a
+                class="download"
+                href="mod.mcaddon"
+                download="mod.mcaddon"
+            >
+                ↓ Скачать мод
+            </a>
+
+            <div class="note">
+                Файл mod.mcaddon для Minecraft Bedrock
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ОПИСАНИЕ ВТОРОГО МОДА -->
+
+<div class="modal" id="guns-modal">
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal('guns-modal')">
+            ×
+        </button>
+
+        <img
+            class="modal-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
+            alt="Современное оружие с разными стилями боя"
+        >
+
+        <div class="description">
+            <h2>
+                Современное оружие с разными стилями боя
+            </h2>
+
+            <p>
+                Добавь в выживание современное и классическое огнестрельное
+                оружие с разными характеристиками и типами боеприпасов.
+            </p>
+
+            <p>
+                В Minecraft появится огнестрельное оружие с разными типами
+                боеприпасов и особенностями стрельбы.
+            </p>
+
+            <p>
+                Мод TR’s Simple Guns включает Револьвер, Пистолет,
+                Пистолет-пулемёт и Двустволь            </p>
+
+            <p>
+                Характеристики оружия отличаются по урону, скорострельности,
+                дальности, точности и отдаче.
+            </p>
+
+            <div class="items-title">
+                Оружие в моде
+            </div>
+
+            <div class="items">
+                <div class="item">Револьвер</div>
+                <div class="item">Пистолет</div>
+                <div class="item">Пистолет-пулемёт</div>
+                <div class="item">Двуствольный обрез</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-title">Информация</div>
+                <div>Название: TR’s Simple Guns</div>
+                <div>Версия: Minecraft Bedrock</div>
+                <div>Тип: Addon</div>
+                <div>Боеприпасы: разные типы</div>
+            </div>
+
+            <a
+                class="download"
+                href="Guns.mcaddon"
+                download="Guns.mcaddon"
+            >
+                ↓ Скачать мод
+            </a>
+
+            <div class="note">
+                Файл Guns.mcaddon для Minecraft Bedrock
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(id) {
+        document.getElementById(id).classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".modal").forEach(function(modal) {
         modal.addEventListener("click", function(event) {
             if (event.target === modal) {
-                closeMod();
+                closeModal(modal.id);
             }
         });
-    </script>
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            document.querySelectorAll(".modal").forEach(function(modal) {
+                modal.classList.remove("active");
+            });
+
+            document.body.style.overflow = "";
+        }
+    });
+</script>
 
 </body>
 </html>
