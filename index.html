@@ -8,9 +8,7 @@
   <style>
     * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -18,21 +16,19 @@
       color: white;
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at 20% 10%, rgba(0, 255, 120, 0.13), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(0, 180, 255, 0.12), transparent 30%),
+        radial-gradient(circle at 20% 10%, rgba(0,255,120,0.13), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(0,180,255,0.12), transparent 30%),
         #070909;
     }
 
-    body.modal-open {
-      overflow: hidden;
-    }
+    body.modal-open { overflow: hidden; }
 
     .topbar {
       position: sticky;
       top: 0;
       z-index: 30;
       height: 64px;
-      background: rgba(8, 10, 10, 0.55);
+      background: rgba(8,10,10,0.55);
       border-bottom: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
@@ -66,7 +62,7 @@
 
     .nav-btn:hover,
     .nav-btn.active {
-      background: rgba(66, 230, 108, 0.13);
+      background: rgba(66,230,108,0.13);
       color: #7cff99;
     }
 
@@ -76,9 +72,7 @@
       letter-spacing: 0.2px;
     }
 
-    .logo span {
-      color: #42e66c;
-    }
+    .logo span { color: #42e66c; }
 
     .saved-label {
       display: inline-flex;
@@ -137,7 +131,7 @@
     .mod-card {
       overflow: hidden;
       border-radius: 26px;
-      background: rgba(22, 27, 25, 0.9);
+      background: rgba(22,27,25,0.9);
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 25px 80px rgba(0,0,0,0.45);
       cursor: pointer;
@@ -146,7 +140,7 @@
 
     .mod-card:hover {
       transform: translateY(-7px);
-      border-color: rgba(65, 235, 108, 0.45);
+      border-color: rgba(65,235,108,0.45);
     }
 
     .image-wrapper {
@@ -164,7 +158,7 @@
     .image-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(5,8,7,.9), transparent 55%);
+      background: linear-gradient(to top, rgba(5,8,7,0.9), transparent 55%);
       pointer-events: none;
     }
 
@@ -210,8 +204,8 @@
     }
 
     .save-btn {
-      border: 1px solid rgba(66, 230, 108, 0.35);
-      background: rgba(66, 230, 108, 0.08);
+      border: 1px solid rgba(66,230,108,0.35);
+      background: rgba(66,230,108,0.08);
       color: #8cffaa;
       border-radius: 12px;
       padding: 10px 13px;
@@ -251,9 +245,7 @@
       background: rgba(4,6,6,0.98);
     }
 
-    .modal.active {
-      display: block;
-    }
+    .modal.active { display: block; }
 
     .modal-content {
       width: min(850px, calc(100% - 30px));
@@ -426,9 +418,7 @@
     <div id="modsList" class="mods"></div>
   </main>
 
-  <footer class="footer">
-    Minecraft Mods • Bedrock Edition
-  </footer>
+  <footer class="footer">Minecraft Mods • Bedrock Edition</footer>
 
   <div class="modal" id="detailModal">
     <div class="modal-content">
@@ -544,25 +534,6 @@
       document.getElementById("savedCount").textContent = saved.length;
     }
 
-    function saveToStorage() {
-      localStorage.setItem(savedKey, JSON.stringify(saved));
-    }
-
-    function toggleSave(modId, event) {
-      if (event) event.stopPropagation();
-
-      if (saved.includes(modId)) {
-        saved = saved.filter(item => item !== modId);
-      } else {
-        saved.push(modId);
-      }
-
-      saveToStorage();
-      renderMods();
-      renderSaved();
-      updateSavedCount();
-    }
-
     function renderCard(mod) {
       const isInSaved = isSaved(mod.id);
       const buttonText = isInSaved ? "✓ Сохранено" : "♡ Сохранить";
@@ -592,23 +563,23 @@
     }
 
     function renderMods() {
-      const modsList = document.getElementById("modsList");
-      modsList.innerHTML = mods.map(renderCard).join("");
+      const list = document.getElementById("modsList");
+      list.innerHTML = mods.map(renderCard).join("");
 
-      modsList.querySelectorAll("[data-open]").forEach(button => {
+      list.querySelectorAll("[data-open]").forEach(button => {
         button.addEventListener("click", function(event) {
           event.stopPropagation();
           openDetail(mods.find(mod => mod.id === this.dataset.open));
         });
       });
 
-      modsList.querySelectorAll("[data-save]").forEach(button => {
+      list.querySelectorAll("[data-save]").forEach(button => {
         button.addEventListener("click", function(event) {
           toggleSave(this.dataset.save, event);
         });
       });
 
-      modsList.querySelectorAll(".mod-card").forEach(card => {
+      list.querySelectorAll(".mod-card").forEach(card => {
         card.addEventListener("click", function(event) {
           if (event.target.closest(".save-btn")) return;
           openDetail(mods.find(mod => mod.id === card.dataset.id));
@@ -653,6 +624,21 @@
       });
     }
 
+    function toggleSave(modId, event) {
+      if (event) event.stopPropagation();
+
+      if (saved.includes(modId)) {
+        saved = saved.filter(item => item !== modId);
+      } else {
+        saved.push(modId);
+      }
+
+      localStorage.setItem(savedKey, JSON.stringify(saved));
+      renderMods();
+      renderSaved();
+      updateSavedCount();
+    }
+
     function openDetail(mod) {
       document.getElementById("detailImage").src = mod.image;
       document.getElementById("detailImage").alt = mod.name;
@@ -663,7 +649,7 @@
       document.getElementById("detailItems").innerHTML =
         "<div class=\"items-title\">Функции</div>" +
         "<div class=\"items\">" +
-        mod.features.map(item => `<div class=\"item">${item}</div>`).join("") +
+        mod.features.map(item => `<div class=\"item\">${item}</div>`).join("") +
         "</div>";
 
       document.getElementById("detailInfo").innerHTML =
