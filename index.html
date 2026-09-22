@@ -16,34 +16,20 @@
             color: white;
             font-family: Arial, Helvetica, sans-serif;
             background:
-                radial-gradient(circle at 20% 10%, rgba(0,255,120,.13), transparent 30%),
-                radial-gradient(circle at 80% 80%, rgba(0,180,255,.12), transparent 30%),
+                radial-gradient(circle at 20% 10%, rgba(0, 255, 120, 0.13), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0, 180, 255, 0.12), transparent 30%),
                 #070909;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            opacity: .07;
-            background-image:
-                linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px);
-            background-size: 40px 40px;
         }
 
         .header {
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 10;
             padding: 18px;
             text-align: center;
-            background: rgba(8,10,10,.85);
-            border-bottom: 1px solid rgba(255,255,255,.08);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            background: rgba(8, 10, 10, 0.9);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
         }
 
         .logo {
@@ -63,9 +49,8 @@
         .hero h1 {
             margin: 0;
             font-size: clamp(35px, 9vw, 65px);
-            font-weight: 900;
             line-height: 1;
-            background: linear-gradient(135deg, #ffffff, #8cffaa, #35e96c);
+            background: linear-gradient(135deg, #fff, #8cffaa, #35e96c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -75,12 +60,11 @@
             margin: 18px auto 0;
             max-width: 600px;
             color: #929a96;
-            font-size: 16px;
         }
 
         .container {
             width: min(900px, calc(100% - 30px));
-            margin: 0 auto;
+            margin: auto;
             padding-bottom: 60px;
         }
 
@@ -91,22 +75,17 @@
 
         .mod-card {
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,.08);
             border-radius: 26px;
-            background: rgba(22,27,25,.88);
-            box-shadow: 0 25px 80px rgba(0,0,0,.45);
+            background: rgba(22, 27, 25, 0.9);
+            border: 1px solid rgba(255,255,255,0.08);
             cursor: pointer;
-            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.45);
+            transition: 0.3s ease;
         }
 
         .mod-card:hover {
             transform: translateY(-7px);
-            border-color: rgba(65,235,108,.4);
-            box-shadow: 0 30px 90px rgba(0,0,0,.6), 0 0 40px rgba(50,220,100,.08);
-        }
-
-        .mod-card:active {
-            transform: scale(.98);
+            border-color: rgba(65, 235, 108, 0.45);
         }
 
         .image-wrapper {
@@ -114,22 +93,16 @@
             overflow: hidden;
         }
 
-        .mod-card-image {
+        .mod-card img {
             display: block;
             width: 100%;
             height: 300px;
             object-fit: cover;
-            transition: transform .6s ease;
-        }
-
-        .mod-card:hover .mod-card-image {
-            transform: scale(1.045);
         }
 
         .image-overlay {
             position: absolute;
             inset: 0;
-            pointer-events: none;
             background: linear-gradient(to top, rgba(5,8,7,.9), transparent 55%);
         }
 
@@ -139,11 +112,10 @@
             left: 18px;
             padding: 8px 13px;
             border-radius: 999px;
-            background: rgba(20,25,22,.82);
-            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(20,25,22,0.85);
+            border: 1px solid rgba(255,255,255,0.15);
             font-size: 13px;
             font-weight: bold;
-            backdrop-filter: blur(10px);
         }
 
         .mod-info {
@@ -181,7 +153,7 @@
             display: none;
             overflow-y: auto;
             padding: 20px 0 50px;
-            background: rgba(4,6,6,.98);
+            background: rgba(4,6,6,0.98);
         }
 
         .modal.active {
@@ -190,7 +162,7 @@
 
         .modal-content {
             width: min(850px, calc(100% - 30px));
-            margin: 0 auto;
+            margin: auto;
         }
 
         .close {
@@ -206,13 +178,11 @@
             color: white;
             font-size: 25px;
             cursor: pointer;
-            transition: .25s;
         }
 
         .close:hover {
             background: #35d965;
             color: #071009;
-            transform: rotate(90deg);
         }
 
         .modal-image {
@@ -220,33 +190,29 @@
             width: 100%;
             max-height: 500px;
             margin-top: 15px;
-            border: 1px solid rgba(255,255,255,.08);
             border-radius: 25px;
             object-fit: cover;
-            box-shadow: 0 30px 80px rgba(0,0,0,.55);
         }
 
         .description {
-            padding: 28px 5px;
+            padding: 25px 5px;
         }
 
         .description h2 {
             margin: 0 0 15px;
             font-size: clamp(30px, 7vw, 45px);
-            font-weight: 900;
         }
 
         .description p {
             color: #aeb5b1;
-            font-size: 16px;
             line-height: 1.7;
         }
 
         .items-title {
-            margin-top: 30px;
-            margin-bottom: 15px;
+            margin-top: 25px;
+            margin-bottom: 12px;
             font-size: 22px;
-            font-weight: 900;
+            font-weight: bold;
         }
 
         .items {
@@ -256,19 +222,16 @@
 
         .item {
             padding: 14px;
-            border: 1px solid rgba(255,255,255,.06);
             border-radius: 14px;
-            background: rgba(255,255,255,.035);
+            background: rgba(255,255,255, 0.05);
             color: #d7ddd9;
-            line-height: 1.4;
         }
 
         .info-box {
             margin-top: 25px;
             padding: 18px;
-            border: 1px solid rgba(255,255,255,.07);
             border-radius: 18px;
-            background: rgba(255,255,255,.035);
+            background: rgba(255,255,255,0.05);
             line-height: 1.8;
         }
 
@@ -290,16 +253,10 @@
             text-decoration: none;
             font-size: 18px;
             font-weight: 900;
-            transition: .25s;
         }
 
         .download:hover {
             background: #55ee79;
-            transform: translateY(-3px);
-        }
-
-        .download:active {
-            transform: scale(.98);
         }
 
         .note {
@@ -310,20 +267,12 @@
         }
 
         @media (max-width: 600px) {
-            .hero {
-                padding: 35px 15px 25px;
-            }
-
             .container {
                 width: calc(100% - 20px);
             }
 
-            .mod-card-image {
+            .mod-card img {
                 height: 240px;
-            }
-
-            .modal-content {
-                width: calc(100% - 20px);
             }
         }
     </style>
@@ -339,12 +288,13 @@
 
 <section class="hero">
     <h1>Моды Minecraft</h1>
-    <p>Смотри моды, открывай описание и скачивай нужные файлы</p>
+    <p>Смотри моды, открывай описание и скачивай их прямо с сайта</p>
 </section>
 
 <main class="container">
     <div class="mods">
 
+        <!-- 1 мод -->
         <div class="mod-card" onclick="openModal('forgeModal')">
             <div class="image-wrapper">
                 <img
@@ -363,12 +313,13 @@
             </div>
         </div>
 
+        <!-- 2 мод -->
         <div class="mod-card" onclick="openModal('gunsModal')">
             <div class="image-wrapper">
                 <img
                     class="mod-card-image"
                     src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
-                    alt="Современное оружие с разными стилями боя"
+                    alt="Современное оружие"
                 >
                 <div class="image-overlay"></div>
                 <div class="badge">MINECRAFT BEDROCK</div>
@@ -381,11 +332,12 @@
             </div>
         </div>
 
+        <!-- 3 мод -->
         <div class="mod-card" onclick="openModal('ladaModal')">
             <div class="image-wrapper">
                 <img
                     class="mod-card-image"
-                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/lada.jpg"
+                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/Lada.jpg"
                     alt="Лада Веста"
                 >
                 <div class="image-overlay"></div>
@@ -406,8 +358,10 @@
     Minecraft Mods • Bedrock Edition
 </footer>
 
+<!-- Мод 1 -->
 <div class="modal" id="forgeModal">
     <div class="modal-content">
+
         <button class="close" onclick="closeModal('forgeModal')">×</button>
 
         <img
@@ -444,21 +398,21 @@
                 ↓ Скачать мод
             </a>
 
-            <div class="note">
-                Файл mod.mcaddon для Minecraft Bedrock
-            </div>
+            <div class="note">Файл mod.mcaddon для Minecraft Bedrock</div>
         </div>
     </div>
 </div>
 
+<!-- Мод 2 -->
 <div class="modal" id="gunsModal">
     <div class="modal-content">
+
         <button class="close" onclick="closeModal('gunsModal')">×</button>
 
         <img
             class="modal-image"
             src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/102.jpg"
-            alt="Современное оружие с разными стилями боя"
+            alt="Современное оружие"
         >
 
         <div class="description">
@@ -509,20 +463,20 @@
                 ↓ Скачать мод
             </a>
 
-            <div class="note">
-                Файл guns.mcpack для Minecraft Bedrock
-            </div>
+            <div class="note">Файл guns.mcpack для Minecraft Bedrock</div>
         </div>
     </div>
 </div>
 
+<!-- Мод 3 -->
 <div class="modal" id="ladaModal">
     <div class="modal-content">
+
         <button class="close" onclick="closeModal('ladaModal')">×</button>
 
         <img
             class="modal-image"
-            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/lada.jpg"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/Lada.jpg"
             alt="Лада Веста"
         >
 
@@ -536,8 +490,8 @@
             </p>
 
             <p>
-                Ты можешь открыть двери, капот и багажник, посадить до четырёх
-                игроков и завести машину с ключа.
+                Ты можешь открыть двери, капот и багажник, посадить
+                до четырёх игроков и завести машину с ключа.
             </p>
 
             <div class="items-title">Функции</div>
@@ -566,15 +520,13 @@
 
             <a
                 class="download"
-                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/lada.mcaddon"
-                download="lada.mcaddon"
+                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/Lada.mcaddon?download=1"
+                download="Lada.mcaddon"
             >
                 ↓ Скачать мод
             </a>
 
-            <div class="note">
-                Файл lada.mcaddon для Minecraft Bedrock
-            </div>
+            <div class="note">Файл Lada.mcaddon для Minecraft Bedrock</div>
         </div>
     </div>
 </div>
