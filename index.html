@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Minecraft Mods</title>
 
     <style>
@@ -15,18 +14,18 @@
             margin: 0;
             min-height: 100vh;
             background:
-                radial-gradient(circle at 20% 10%, rgba(0, 255, 120, 0.13), transparent 30%),
-                radial-gradient(circle at 80% 80%, rgba(0, 180, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 20% 10%, rgba(0,255,120,.13), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0,180,255,.12), transparent 30%),
                 #070909;
             color: white;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
-        .header {
+        header {
             padding: 20px;
+            background: #101413;
             text-align: center;
-            background: rgba(8, 10, 10, 0.85);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #26342b;
         }
 
         .logo {
@@ -46,73 +45,34 @@
         .hero h1 {
             margin: 0;
             font-size: clamp(35px, 9vw, 65px);
-            line-height: 1;
-            background: linear-gradient(135deg, #ffffff, #8cffaa, #35e96c);
+            background: linear-gradient(135deg, #fff, #8cffaa, #35e96c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
         .hero p {
-            margin: 18px auto 0;
-            max-width: 600px;
             color: #929a96;
-            font-size: 16px;
         }
 
         .container {
             width: min(900px, calc(100% - 30px));
             margin: auto;
-            padding-bottom: 60px;
         }
 
         .mod-card {
             overflow: hidden;
             border-radius: 26px;
-            background: rgba(22, 27, 25, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
-            transition: 0.3s ease;
+            background: #161b19;
+            border: 1px solid #29352d;
+            box-shadow: 0 25px 80px rgba(0,0,0,.45);
         }
 
-        .mod-card:hover {
-            transform: translateY(-7px);
-            border-color: rgba(65, 235, 108, 0.5);
-        }
-
-        .image-wrapper {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mod-card img {
+        .mod-image {
             display: block;
             width: 100%;
             height: 330px;
             object-fit: cover;
-        }
-
-        .image-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to top,
-                rgba(5, 8, 7, 0.9),
-                transparent 55%
-            );
-        }
-
-        .badge {
-            position: absolute;
-            top: 18px;
-            left: 18px;
-            padding: 8px 13px;
-            border-radius: 999px;
-            background: rgba(20, 25, 22, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 13px;
-            font-weight: bold;
         }
 
         .mod-info {
@@ -120,126 +80,44 @@
         }
 
         .mod-info h2 {
-            margin: 0 0 8px;
-            font-size: 27px;
+            margin-top: 0;
         }
 
         .mod-info p {
-            margin: 0;
             color: #929a96;
-            line-height: 1.5;
-        }
-
-        .open-text {
-            margin-top: 20px;
-            color: #55ee79;
-            font-weight: bold;
-        }
-
-        .footer {
-            padding: 30px 20px 50px;
-            color: #4f5753;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            display: none;
-            overflow-y: auto;
-            background: rgba(4, 6, 6, 0.98);
-        }
-
-        .modal.active {
-            display: block;
-        }
-
-        .modal-content {
-            width: min(850px, calc(100% - 30px));
-            min-height: 100vh;
-            margin: auto;
-            padding: 20px 0 50px;
-        }
-
-        .close {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            margin-left: auto;
-            border: 0;
-            border-radius: 50%;
-            background: #202523;
-            color: white;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        .modal-image {
-            display: block;
-            width: 100%;
-            max-height: 500px;
-            margin-top: 15px;
-            border-radius: 25px;
-            object-fit: cover;
-        }
-
-        .description {
-            padding: 28px 5px;
-        }
-
-        .description h2 {
-            margin: 0 0 14px;
-            font-size: clamp(30px, 7vw, 45px);
-        }
-
-        .description p {
-            color: #aeb5b1;
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        .info-box {
-            margin-top: 25px;
-            padding: 18px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .info-box-title {
-            margin-bottom: 8px;
-            color: #52e873;
-            font-weight: bold;
+            line-height: 1.6;
         }
 
         .download {
             display: block;
-            width: 100%;
+            margin-top: 22px;
             padding: 18px;
             border-radius: 17px;
             background: linear-gradient(135deg, #36dc65, #20b94d);
-            color none;
+            color: #061009;
+            text-align: center;
+            text-decoration: none;
             font-size: 18px;
             font-weight: 900;
         }
 
-        .note {
-            margin-top: 13px;
+        .download:hover {
+            background: #55ee79;
+        }
+
+        footer {
+            padding: 40px 20px;
             color: #626a66;
             text-align: center;
-            font-size: 12px;
         }
 
         @media (max-width: 600px) {
-            .mod-card img {
-                height: 250px;
-            }
-
             .container {
                 width: calc(100% - 20px);
+            }
+
+            .mod-image {
+                height: 250px;
             }
         }
     </style>
@@ -247,158 +125,55 @@
 
 <body>
 
-    <header class="header">
-        <div class="logo">
-            Minecraft <span>Mods</span>
-        </div>
-    </header>
+<header>
+    <div class="logo">
+        Minecraft <span>Mods</span>
+    </div>
+</header>
 
-    <section class="hero">
-        <h1>Моды Minecraft</h1>
+<section class="hero">
+    <h1>Моды Minecraft</h1>
+    <p>Скачивай моды для Minecraft Bedrock</p>
+</section>
 
-        <p>
-            Смотри моды, читай описание и скачивай их прямо с сайта
-        </p>
-    </section>
+<main class="container">
+    <div class="mod-card">
 
-    <main class="container">
+        <img
+            class="mod-image"
+            src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
+            alt="Несбалансированная Кузница"
+        >
 
-        <div class="mod-card" onclick="openMod()">
+        <div class="mod-info">
+            <h2>Несбалансированная Кузница</h2>
 
-            <div class="image-wrapper">
+            <p>
+                Незеритовая экипировка с максимальными чарами
+                всего за один изумруд.
+            </p>
 
-                <!-- ТВОЯ КАРТИНКА -->
-                <img
-                    src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
-                    alt="Несбалансированная Кузница"
-                >
-
-                <div class="image-overlay"></div>
-
-                <div class="badge">
-                    MINECRAFT BEDROCK
-                </div>
-
-            </div>
-
-            <div class="mod-info">
-
-                <h2>
-                    Несбалансированная Кузница
-                </h2>
-
-                <p>
-                    Незеритовая экипировка с максимальными чарами всего за 1 изумруд
-                </p>
-
-                <div class="open-text">
-                    Открыть мод →
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-    <footer class="footer">
-        Minecraft Mods • Bedrock Edition
-    </footer>
-
-    <div class="modal" id="modModal">
-
-        <div class="modal-content">
-
-            <button class="close" onclick="closeMod()">
-                ×
-            </button>
-
-            <img
-                class="modal-image"
-                src="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/5002.jpg"
-                alt="Несбалансированная Кузница"
-            >
-
-            <div class="description">
-
-                <h2>
-                    Несбалансированная Кузница
-                </h2>
-
-                <p>
-                    Если тебе не хочется тратить много опыта и ресурсов
-                    на получение хорошей экипировки, мод OP Toolsmith
-                    даст другой вариант развития.
-                </p>
-
-                <p>
-                    Житель-кузнец получит новые сделки, среди которых есть
-                    незеритовая броня и инструменты с максимальными чарами.
-                </p>
-
-                <div class="info-box">
-
-                    <div class="info-box-title">
-                        Информация
-                    </div>
-
-                    <div>
-                        Оригинальное название: OP Toolsmith
-                    </div>
-
-                    <div>
-                        Версия: Minecraft Bedrock
-                    </div>
-
-                    <div>
-                        Тип: Addon
-                    </div>
-
-                </div>
-
-            </div>
+            <p>
+                Оригинальное название: OP Toolsmith<br>
+                Версия: Minecraft Bedrock<br>
+                Тип: Addon
+            </p>
 
             <a
                 class="download"
-                href="OP%20Toolsmith%20Trades.mcaddon"
-                download
+                href="https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/mod.mcaddon"
+                download="mod.mcaddon"
             >
                 ↓ Скачать мод
             </a>
-
-            <div class="note">
-                Файл .mcaddon для Minecraft Bedrock
-            </div>
-
         </div>
 
     </div>
+</main>
 
-    <script>
-        function openMod() {
-            document
-                .getElementById("modModal")
-                .classList.add("active");
-
-            document.body.style.overflow = "hidden";
-        }
-
-        function closeMod() {
-            document
-                .getElementById("modModal")
-                .classList.remove("active");
-
-            document.body.style.overflow = "";
-        }
-
-        document
-            .getElementById("modModal")
-            .addEventListener("click", function(event) {
-                if (event.target === this) {
-                    closeMod();
-                }
-            });
-    </script>
+<footer>
+    Minecraft Mods • Bedrock Edition
+</footer>
 
 </body>
 </html>
