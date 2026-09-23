@@ -6,413 +6,401 @@
 <title>Minecraft Mods</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+*{box-sizing:border-box}
 
-body {
-    margin: 0;
-    padding-bottom: 90px;
-    min-height: 100vh;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
+body{
+    margin:0;
+    padding-bottom:90px;
+    min-height:100vh;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at 20% 10%, rgba(0,255,120,.13), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(0,180,255,.12), transparent 30%),
-        #070909;
+    radial-gradient(circle at 20% 10%,rgba(0,255,120,.13),transparent 30%),
+    radial-gradient(circle at 80% 80%,rgba(0,180,255,.12),transparent 30%),
+    #070909;
 }
 
-body.lock {
-    overflow: hidden;
+body.lock{overflow:hidden}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    padding:18px;
+    text-align:center;
+    background:rgba(8,10,10,.85);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
 }
 
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    padding: 18px;
-    text-align: center;
-    background: rgba(8,10,10,.85);
-    border-bottom: 1px solid rgba(255,255,255,.08);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+.logo{
+    font-size:27px;
+    font-weight:900;
 }
 
-.logo {
-    font-size: 27px;
-    font-weight: 900;
+.logo span{color:#42e66c}
+
+.hero{
+    padding:45px 20px 25px;
+    text-align:center;
 }
 
-.logo span {
-    color: #42e66c;
+.hero h1{
+    margin:0;
+    font-size:clamp(35px,9vw,65px);
+    line-height:1;
+    background:linear-gradient(135deg,#fff,#8cffaa,#35e96c);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 }
 
-.hero {
-    padding: 45px 20px 25px;
-    text-align: center;
+.hero p{
+    max-width:650px;
+    margin:18px auto 0;
+    color:#929a96;
+    line-height:1.6;
 }
 
-.hero h1 {
-    margin: 0;
-    font-size: clamp(35px, 9vw, 65px);
-    line-height: 1;
-    background: linear-gradient(135deg, #fff, #8cffaa, #35e96c);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+/* Категории */
+.categories{
+    width:min(1100px,calc(100% - 30px));
+    margin:0 auto 25px;
+    padding:10px;
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:16px;
+    background:rgba(8,10,10,.55);
+    backdrop-filter:blur(18px);
 }
 
-.hero p {
-    max-width: 650px;
-    margin: 18px auto 0;
-    color: #929a96;
-    line-height: 1.6;
-}
-
-/* Полоса категорий */
-.categories {
-    width: min(1100px, calc(100% - 30px));
-    margin: 0 auto 25px;
-    padding: 10px;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 16px;
-    background: rgba(8,10,10,.55);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-}
-
-.category {
-    flex: 0 0 auto;
-    border: 0;
-    border-radius: 11px;
-    padding: 11px 17px;
-    background: transparent;
-    color: #aebbb2;
-    font-weight: bold;
-    cursor: pointer;
+.category{
+    flex:0 0 auto;
+    border:0;
+    border-radius:11px;
+    padding:11px 17px;
+    background:transparent;
+    color:#aebbb2;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 .category:hover,
-.category.active {
-    background: rgba(66,230,108,.16);
-    color: #7cff99;
+.category.active{
+    background:rgba(66,230,108,.16);
+    color:#7cff99;
 }
 
-.container {
-    width: min(900px, calc(100% - 30px));
-    margin: auto;
+.container{
+    width:min(900px,calc(100% - 30px));
+    margin:auto;
 }
 
-.mods {
-    display: grid;
-    gap: 25px;
+.mods{
+    display:grid;
+    gap:25px;
 }
 
-.mod-card {
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 26px;
-    background: rgba(22,27,25,.9);
-    box-shadow: 0 25px 80px rgba(0,0,0,.45);
-    cursor: pointer;
-    transition: .3s ease;
+.mod-card{
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:26px;
+    background:rgba(22,27,25,.9);
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
+    cursor:pointer;
+    transition:.3s;
 }
 
-.mod-card:hover {
-    transform: translateY(-7px);
-    border-color: rgba(65,235,108,.45);
+.mod-card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(65,235,108,.45);
 }
 
-.image-wrapper {
-    position: relative;
-    height: 300px;
-    overflow: hidden;
+.image-wrapper{
+    position:relative;
+    height:300px;
+    overflow:hidden;
 }
 
-.mod-card-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.mod-card-image{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-.image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(5,8,7,.9), transparent 55%);
-    pointer-events: none;
+.image-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(5,8,7,.9),transparent 55%);
 }
 
-.badge {
-    position: absolute;
-    top: 18px;
-    left: 18px;
-    padding: 8px 13px;
-    border-radius: 999px;
-    background: rgba(20,25,22,.85);
-    border: 1px solid rgba(255,255,255,.15);
-    font-size: 13px;
-    font-weight: bold;
+.badge{
+    position:absolute;
+    top:18px;
+    left:18px;
+    padding:8px 13px;
+    border-radius:999px;
+    background:rgba(20,25,22,.85);
+    border:1px solid rgba(255,255,255,.15);
+    font-size:13px;
+    font-weight:bold;
 }
 
-.mod-info {
-    padding: 22px;
+.mod-info{
+    padding:22px;
 }
 
-.mod-info h2 {
-    margin: 0 0 10px;
-    font-size: 25px;
+.mod-info h2{
+    margin:0 0 10px;
+    font-size:25px;
 }
 
-.mod-info p {
-    margin: 0;
-    color: #929a96;
-    line-height: 1.6;
+.mod-info p{
+    margin:0;
+    color:#929a96;
+    line-height:1.6;
 }
 
-.card-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 20px;
+.card-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:20px;
 }
 
-.open-text {
-    color: #55ee79;
-    font-weight: bold;
+.open-text{
+    color:#55ee79;
+    font-weight:bold;
 }
 
-.save-button {
-    border: 1px solid rgba(66,230,108,.4);
-    border-radius: 12px;
-    padding: 10px 14px;
-    background: rgba(66,230,108,.1);
-    color: #8cffaa;
-    font-weight: bold;
-    cursor: pointer;
+.save-button{
+    border:1px solid rgba(66,230,108,.4);
+    border-radius:12px;
+    padding:10px 14px;
+    background:rgba(66,230,108,.1);
+    color:#8cffaa;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.save-button.saved {
-    background: #42e66c;
-    color: #071009;
+.save-button.saved{
+    background:#42e66c;
+    color:#071009;
 }
 
-.empty {
-    padding: 40px 20px;
-    border: 1px dashed rgba(255,255,255,.18);
-    border-radius: 20px;
-    color: #929a96;
-    text-align: center;
-    line-height: 1.7;
+.empty{
+    padding:40px 20px;
+    border:1px dashed rgba(255,255,255,.18);
+    border-radius:20px;
+    color:#929a96;
+    text-align:center;
+    line-height:1.7;
 }
 
-.footer {
-    padding: 30px 20px;
-    color: #4f5753;
-    text-align: center;
-    font-size: 13px;
+.footer{
+    padding:30px 20px;
+    color:#4f5753;
+    text-align:center;
+    font-size:13px;
 }
 
-/* Нижняя фиксированная панель */
-.bottom-navigation {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    height: 74px;
-    padding: 9px 15px;
-    background: rgba(8,10,10,.75);
-    border-top: 1px solid rgba(255,255,255,.12);
-    box-shadow: 0 -10px 35px rgba(0,0,0,.3);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+/* Нижняя панель */
+.bottom-navigation{
+    position:fixed;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index:100;
+    height:74px;
+    padding:9px 15px;
+    background:rgba(8,10,10,.75);
+    border-top:1px solid rgba(255,255,255,.12);
+    box-shadow:0 -10px 35px rgba(0,0,0,.3);
+    backdrop-filter:blur(20px);
 }
 
-.bottom-navigation-inner {
-    width: min(900px, 100%);
-    height: 100%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.bottom-navigation-inner{
+    width:min(900px,100%);
+    height:100%;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.navigation-button {
-    min-width: 140px;
-    border: 0;
-    border-radius: 14px;
-    padding: 11px 18px;
-    background: transparent;
-    color: #aebbb2;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
+.navigation-button{
+    min-width:140px;
+    border:0;
+    border-radius:14px;
+    padding:11px 18px;
+    background:transparent;
+    color:#aebbb2;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 .navigation-button:hover,
-.navigation-button.active {
-    background: rgba(66,230,108,.15);
-    color: #7cff99;
+.navigation-button.active{
+    background:rgba(66,230,108,.15);
+    color:#7cff99;
 }
 
-.saved-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 22px;
-    height: 22px;
-    margin-left: 5px;
-    padding: 0 6px;
-    border-radius: 999px;
-    background: #42e66c;
-    color: #071009;
-    font-size: 11px;
+.saved-count{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:22px;
+    height:22px;
+    margin-left:5px;
+    padding:0 6px;
+    border-radius:999px;
+    background:#42e66c;
+    color:#071009;
+    font-size:11px;
 }
 
 /* Окна */
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: none;
-    overflow-y: auto;
-    padding: 20px 0 50px;
-    background: rgba(4,6,6,.98);
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:none;
+    overflow-y:auto;
+    padding:20px 0 50px;
+    background:rgba(4,6,6,.98);
 }
 
-.modal.active {
-    display: block;
+.modal.active{display:block}
+
+.modal-content{
+    width:min(850px,calc(100% - 30px));
+    margin:auto;
 }
 
-.modal-content {
-    width: min(850px, calc(100% - 30px));
-    margin: auto;
+.close-button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    margin-left:auto;
+    border:0;
+    border-radius:50%;
+    background:#202523;
+    color:#fff;
+    font-size:25px;
+    cursor:pointer;
 }
 
-.close-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    margin-left: auto;
-    border: 0;
-    border-radius: 50%;
-    background: #202523;
-    color: #fff;
-    font-size: 25px;
-    cursor: pointer;
+.close-button:hover{
+    background:#35d965;
+    color:#071009;
 }
 
-.close-button:hover {
-    background: #35d965;
-    color: #071009;
+.modal-image{
+    display:block;
+    width:100%;
+    max-height:500px;
+    margin-top:15px;
+    border-radius:25px;
+    object-fit:cover;
 }
 
-.modal-image {
-    display: block;
-    width: 100%;
-    max-height: 500px;
-    margin-top: 15px;
-    border-radius: 25px;
-    object-fit: cover;
+.description{
+    padding:25px 5px;
 }
 
-.description {
-    padding: 25px 5px;
+.description h2{
+    margin:0 0 15px;
+    font-size:clamp(30px,7vw,45px);
 }
 
-.description h2 {
-    margin: 0 0 15px;
-    font-size: clamp(30px, 7vw, 45px);
+.description p{
+    color:#aeb5b1;
+    line-height:1.7;
 }
 
-.description p {
-    color: #aeb5b1;
-    line-height: 1.7;
+.items-title{
+    margin:25px 0 12px;
+    font-size:22px;
+    font-weight:bold;
 }
 
-.items-title {
-    margin: 25px 0 12px;
-    font-size: 22px;
-    font-weight: bold;
+.items{
+    display:grid;
+    gap:10px;
 }
 
-.items {
-    display: grid;
-    gap: 10px;
+.item{
+    padding:14px;
+    border-radius:14px;
+    background:rgba(255,255,255,.05);
+    color:#d7ddd9;
+    line-height:1.5;
 }
 
-.item {
-    padding: 14px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.05);
-    color: #d7ddd9;
-    line-height: 1.5;
+.info-box{
+    margin-top:25px;
+    padding:18px;
+    border-radius:18px;
+    background:rgba(255,255,255,.05);
+    line-height:1.8;
 }
 
-.info-box {
-    margin-top: 25px;
-    padding: 18px;
-    border-radius: 18px;
-    background: rgba(255,255,255,.05);
-    line-height: 1.8;
+.info-title{
+    margin-bottom:8px;
+    color:#52e873;
+    font-weight:bold;
 }
 
-.info-title {
-    margin-bottom: 8px;
-    color: #52e873;
-    font-weight: bold;
+.download{
+    display:block;
+    width:100%;
+    margin-top:25px;
+    padding:18px;
+    border-radius:17px;
+    background:linear-gradient(135deg,#36dc65,#20b94d);
+    color:#061009;
+    text-align:center;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:900;
 }
 
-.download {
-    display: block;
-    width: 100%;
-    margin-top: 25px;
-    padding: 18px;
-    border-radius: 17px;
-    background: linear-gradient(135deg, #36dc65, #20b94d);
-    color: #061009;
-    text-align: center;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 900;
+.note{
+    margin-top:12px;
+    color:#626a66;
+    text-align:center;
+    font-size:12px;
 }
 
-.note {
-    margin-top: 12px;
-    color: #626a66;
-    text-align: center;
-    font-size: 12px;
-}
-
-@media (max-width:600px) {
-    .image-wrapper {
-        height: 240px;
+@media(max-width:600px){
+    .image-wrapper{
+        height:240px;
     }
 
-    .container {
-        width: calc(100% - 20px);
+    .container{
+        width:calc(100% - 20px);
     }
 
-    .card-actions {
-        align-items: stretch;
-        flex-direction: column;
+    .card-actions{
+        align-items:stretch;
+        flex-direction:column;
     }
 
-    .save-button {
-        width: 100%;
+    .save-button{
+        width:100%;
     }
 
-    .navigation-button {
-        min-width: 0;
-        padding: 10px 12px;
-        font-size: 13px;
+    .navigation-button{
+        min-width:0;
+        padding:10px 12px;
+        font-size:13px;
     }
 }
 </style>
@@ -434,7 +422,6 @@ body.lock {
     </p>
 </section>
 
-<!-- Категории показываются только во вкладке «Моды» -->
 <div id="categories" class="categories">
     <button class="category active" data-category="all">Все</button>
     <button class="category" data-category="cars">Машины</button>
@@ -464,7 +451,6 @@ body.lock {
     </div>
 </nav>
 
-<!-- Описание мода -->
 <div id="detailsModal" class="modal">
     <div class="modal-content">
         <button class="close-button" data-close="detailsModal">×</button>
@@ -489,7 +475,6 @@ body.lock {
     </div>
 </div>
 
-<!-- Сохранённые моды -->
 <div id="savedModal" class="modal">
     <div class="modal-content">
         <button class="close-button" data-close="savedModal">×</button>
@@ -562,14 +547,16 @@ const mods = [
             "Собственная русская машина в Minecraft с открывающимися дверьми, капотом и багажником.",
         features: [
             "Доступны разные цвета, Такси и ДПС",
-            "Открываются двери, капот и багажник",
+            "Открываются все двери, капот и багажник",
             "4 посадочных места",
             "Заводится с ключа",
             "Есть коробка передач",
+            "Анимации дворников и выхлопа",
             "Спидометр",
             "Коллизия",
             "Требуется бензин",
-            "Есть музыка"
+            "Есть музыка",
+            "Для получения нужен творческий режим"
         ],
         info: [
             "Название: Лада Веста",
@@ -707,9 +694,9 @@ function renderMods() {
 }
 
 function renderSavedMods() {
-    const filteredSaved = mods.filter(mod => isSaved(mod.id));
+    const saved = mods.filter(mod => isSaved(mod.id));
 
-    if (filteredSaved.length === 0) {
+    if (saved.length === 0) {
         savedList.innerHTML = `
             <div class="empty">
                 Пока нет сохраненных модов.<br>
@@ -719,7 +706,7 @@ function renderSavedMods() {
         return;
     }
 
-    savedList.innerHTML = filteredSaved
+    savedList.innerHTML = saved
         .map(createCard)
         .join("");
 
@@ -768,7 +755,10 @@ function openDetails(mod) {
     const download = document.getElementById("detailsDownload");
 
     download.href = mod.download;
-    download.download .split("?")[0];
+    download.download = mod.download
+        .split("/")
+        .pop()
+        .split("?")[0];
 
     openModal("detailsModal");
 }
@@ -781,24 +771,36 @@ function openModal(id) {
 function closeModal(id) {
     document.getElementById(id).classList.remove("active");
 
-           document.body.classList.remove("lock");
+    if (!document.querySelector(".modal.active")) {
+        document.body.classList.remove("lock");
     }
 }
 
-/* Переключение категорий */
+/* Категории */
 document.querySelectorAll(".category").forEach(button => {
     button.addEventListener("click", () => {
         activeCategory = button.dataset.category;
 
         document.querySelectorAll(".category").forEach(item => {
-           .getElementById("savedTab").classList.remove("active");
+            item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+        renderMods();
+    });
+});
+
+/* Вкладка модов */
+document.getElementById("modsTab").addEventListener("click", () => {
+    document.getElementById("modsTab").classList.add("active");
+    document.getElementById("savedTab").classList.remove("active");
 
     categories.style.display = "flex";
     closeModal("savedModal");
     renderMods();
 });
 
-/* Вкладка «Сохраненные» */
+/* Вкладка сохранённых */
 document.getElementById("savedTab").addEventListener("click", () => {
     document.getElementById("savedTab").classList.add("active");
     document.getElementById("modsTab").classList.remove("active");
@@ -808,8 +810,13 @@ document.getElementById("savedTab").addEventListener("click", () => {
     openModal("savedModal");
 });
 
-/* Кнопки закрытия */
-document.querySelectorAll("[data-close]"). */
+/* Закрытие окон */
+document.querySelectorAll("[data-close]").forEach(button => {
+    button.addEventListener("click", () => {
+        closeModal(button.dataset.close);
+    });
+});
+
 document.querySelectorAll(".modal").forEach(modal => {
     modal.addEventListener("click", event => {
         if (event.target === modal) {
@@ -818,7 +825,6 @@ document.querySelectorAll(".modal").forEach(modal => {
     });
 });
 
-/* Закрытие клавишей Escape */
 document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
         closeModal("detailsModal");
