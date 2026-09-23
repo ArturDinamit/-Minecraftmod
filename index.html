@@ -28,8 +28,8 @@ body.lock{overflow:hidden}
     z-index:10;
     padding:18px;
     text-align:center;
-    background:rgba(8,10,10,.85);
-    border-bottom:1px solid #ffffff14;
+    background:rgba(8,10,10,.88);
+    border-bottom:1px solid rgba(255,255,255,.08);
     backdrop-filter:blur(18px);
 }
 
@@ -48,6 +48,7 @@ body.lock{overflow:hidden}
 .hero h1{
     margin:0;
     font-size:clamp(35px,9vw,65px);
+    line-height:1;
     background:linear-gradient(135deg,#fff,#8cffaa,#35e96c);
     -webkit-background-clip:text;
     background-clip:text;
@@ -68,9 +69,9 @@ body.lock{overflow:hidden}
     display:flex;
     gap:8px;
     overflow-x:auto;
-    border:1px solid #ffffff18;
+    border:1px solid rgba(255,255,255,.1);
     border-radius:16px;
-    background:#080a0a99;
+    background:rgba(8,10,10,.58);
     backdrop-filter:blur(18px);
 }
 
@@ -87,7 +88,7 @@ body.lock{overflow:hidden}
 
 .category:hover,
 .category.active{
-    background:#42e66c26;
+    background:rgba(66,230,108,.16);
     color:#7cff99;
 }
 
@@ -103,17 +104,17 @@ body.lock{overflow:hidden}
 
 .card{
     overflow:hidden;
-    border:1px solid #ffffff14;
+    border:1px solid rgba(255,255,255,.08);
     border-radius:26px;
-    background:#161b19e8;
-    box-shadow:0 25px 80px #0007;
+    background:rgba(22,27,25,.92);
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
     cursor:pointer;
-    transition:.3s;
+    transition:.3s ease;
 }
 
 .card:hover{
     transform:translateY(-7px);
-    border-color:#41eb6c73;
+    border-color:rgba(65,235,108,.45);
 }
 
 .image{
@@ -123,16 +124,16 @@ body.lock{overflow:hidden}
 }
 
 .image img{
+    display:block;
     width:100%;
     height:100%;
-    display:block;
     object-fit:cover;
 }
 
 .overlay{
     position:absolute;
     inset:0;
-    background:linear-gradient(to top,#050807e8,transparent 55%);
+    background:linear-gradient(to top,rgba(5,8,7,.9),transparent 55%);
 }
 
 .badge{
@@ -141,8 +142,8 @@ body.lock{overflow:hidden}
     left:18px;
     padding:8px 13px;
     border-radius:999px;
-    background:#141916dd;
-    border:1px solid #ffffff26;
+    background:rgba(20,25,22,.86);
+    border:1px solid rgba(255,255,255,.15);
     font-size:13px;
     font-weight:bold;
 }
@@ -176,10 +177,10 @@ body.lock{overflow:hidden}
 }
 
 .save{
-    border:1px solid #42e66c66;
+    border:1px solid rgba(66,230,108,.4);
     border-radius:12px;
     padding:10px 14px;
-    background:#42e66c14;
+    background:rgba(66,230,108,.1);
     color:#8cffaa;
     font-weight:bold;
     cursor:pointer;
@@ -192,7 +193,7 @@ body.lock{overflow:hidden}
 
 .empty{
     padding:40px 20px;
-    border:1px dashed #ffffff29;
+    border:1px dashed rgba(255,255,255,.18);
     border-radius:20px;
     color:#929a96;
     text-align:center;
@@ -213,8 +214,8 @@ body.lock{overflow:hidden}
     z-index:100;
     height:74px;
     padding:9px 15px;
-    border-top:1px solid #ffffff1f;
-    background:#080a0abf;
+    border-top:1px solid rgba(255,255,255,.12);
+    background:rgba(8,10,10,.76);
     backdrop-filter:blur(20px);
 }
 
@@ -240,7 +241,7 @@ body.lock{overflow:hidden}
 
 .tab:hover,
 .tab.active{
-    background:#42e66c26;
+    background:rgba(66,230,108,.15);
     color:#7cff99;
 }
 
@@ -265,7 +266,7 @@ body.lock{overflow:hidden}
     display:none;
     overflow:auto;
     padding:20px 0 50px;
-    background:#040606fa;
+    background:rgba(4,6,6,.98);
 }
 
 .modal.active{display:block}
@@ -288,6 +289,11 @@ body.lock{overflow:hidden}
     color:#fff;
     font-size:25px;
     cursor:pointer;
+}
+
+.close:hover{
+    background:#35d965;
+    color:#071009;
 }
 
 .modal-image{
@@ -327,7 +333,7 @@ body.lock{overflow:hidden}
 .item{
     padding:14px;
     border-radius:14px;
-    background:#ffffff0d;
+    background:rgba(255,255,255,.05);
     color:#d7ddd9;
 }
 
@@ -335,7 +341,7 @@ body.lock{overflow:hidden}
     margin-top:25px;
     padding:18px;
     border-radius:18px;
-    background:#ffffff0d;
+    background:rgba(255,255,255,.05);
     line-height:1.8;
 }
 
@@ -391,7 +397,10 @@ body.lock{overflow:hidden}
 
 <section class="hero">
     <h1>Моды Minecraft</h1>
-    <p>Выбирай категорию, открывай описание, сохраняй понравившиеся и скачивай моды.</p>
+    <p>
+        Выбирай категорию, открывай описание, сохраняй понравившиеся
+        и скачивай моды.
+    </p>
 </section>
 
 <div id="categories" class="categories">
@@ -415,9 +424,11 @@ body.lock{overflow:hidden}
 
 <nav class="bottom">
     <div class="bottom-inner">
-        <button id="modsTab" class="tab active">Моды</button>
+        <button id="modsTab" class="tab active" type="button">
+            Моды
+        </button>
 
-        <button id="savedTab" class="tab">
+        <button id="savedTab" class="tab" type="button">
             Сохраненные
             <span id="savedCount" class="count">0</span>
         </button>
@@ -462,15 +473,15 @@ body.lock{overflow:hidden}
 </div>
 
 <script>
-const BASE =
-"https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/";
+const BASE_URL =
+    "https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/";
 
 const mods = [
     {
         id: "forge",
         categories: ["mobs", "items", "features"],
         name: "Несбалансированная Кузница",
-        image: BASE + "5002.jpg",
+        image: BASE_URL + "5002.jpg",
         text: "Незеритовая экипировка с максимальными чарами всего за 1 изумруд.",
         items: [
             "Незеритовая броня и инструменты",
@@ -483,14 +494,14 @@ const mods = [
             "Версия: Minecraft Bedrock",
             "Тип: Addon"
         ],
-        file: BASE + "mod.mcaddon"
+        file: BASE_URL + "mod.mcaddon"
     },
 
     {
         id: "guns",
         categories: ["weapons", "items", "features"],
         name: "Современное оружие с разными стилями боя",
-        image: BASE + "102.jpg",
+        image: BASE_URL + "102.jpg",
         text: "Современное и классическое огнестрельное оружие с разными характеристиками и боеприпасами.",
         items: [
             "Револьвер",
@@ -506,14 +517,14 @@ const mods = [
             "Тип: Addon",
             "Боеприпасы: разные типы"
         ],
-        file: BASE + "guns.mcpack"
+        file: BASE_URL + "guns.mcpack"
     },
 
     {
         id: "lada",
         categories: ["cars", "features", "other"],
         name: "Лада Веста",
-        image: BASE + "Lada.jpg",
+        image: BASE_URL + "Lada.jpg",
         text: "Собственная русская машина в Minecraft с открывающимися дверьми, капотом и багажником.",
         items: [
             "Доступны разные цвета, Такси и ДПС",
@@ -532,14 +543,15 @@ const mods = [
             "Тип: Addon",
             "Стиль: Автомобиль / транспорт"
         ],
-        file: BASE + "Lada.mcaddon?download=1"
+        file: BASE_URL + "Lada.mcaddon?download=1"
     }
 ];
 
-let activeCategory = "all";
+const STORAGE_KEY = "minecraft_saved_mods";
 
-let saved = JSON.parse(
-    localStorage.getItem("minecraft_saved_mods") || "[]"
+let activeCategory = "all";
+let savedMods = JSON.parse(
+    localStorage.getItem(STORAGE_KEY) || "[]"
 );
 
 const modsList = document.getElementById("modsList");
@@ -548,25 +560,22 @@ const savedCount = document.getElementById("savedCount");
 const categories = document.getElementById("categories");
 
 function isSaved(id) {
-    return saved.includes(id);
+    return savedMods.includes(id);
 }
 
-function updateCount() {
-    savedCount.textContent = saved.length;
+function updateSavedCount() {
+    savedCount.textContent = savedMods.length;
 }
 
-function saveStorage() {
+function saveData() {
     localStorage.setItem(
-        "minecraft_saved_mods",
-        JSON.stringify(saved)
+        STORAGE_KEY,
+        JSON.stringify(savedMods)
     );
 }
 
-function makeCard(mod) {
-    const savedClass = isSaved(mod.id) ? "saved" : "";
-    const buttonText = isSaved(mod.id)
-        ? "✓ Сохранено"
-        : "♡ Сохранить";
+function createCard(mod) {
+    const saved = isSaved(mod.id);
 
     return `
         <article class="card" data-id="${mod.id}">
@@ -586,11 +595,11 @@ function makeCard(mod) {
                     </span>
 
                     <button
-                        class="save ${savedClass}"
+                        class="save ${saved ? "saved" : ""}"
                         data-save="${mod.id}"
                         type="button"
                     >
-                        ${buttonText}
+                        ${saved ? "✓ Сохранено" : "♡ Сохранить"}
                     </button>
                 </div>
             </div>
@@ -607,7 +616,9 @@ function connectCards(container) {
                 item => item.id === button.dataset.open
             );
 
-            openDetails(mod);
+            if (mod) {
+                openDetails(mod);
+            }
         });
     });
 
@@ -628,19 +639,22 @@ function connectCards(container) {
                 item => item.id === card.dataset.id
             );
 
-            openDetails(mod);
+            if (mod) {
+                openDetails(mod);
+            }
         });
     });
 }
 
 function renderMods() {
-    const filtered = activeCategory === "all"
-        ? mods
-        : mods.filter(mod =>
-            mod.categories.includes(activeCategory)
-        );
+    const filteredMods =
+        activeCategory === "all"
+            ? mods
+            : mods.filter(mod =>
+                mod.categories.includes(activeCategory)
+            );
 
-    if (filtered.length === 0) {
+    if (filteredMods.length === 0) {
         modsList.innerHTML = `
             <div class="empty">
                 В этой категории пока нет модов.
@@ -649,14 +663,17 @@ function renderMods() {
         return;
     }
 
-    modsList.innerHTML = filtered.map(makeCard).join("");
+    modsList.innerHTML = filteredMods
+        .map(createCard)
+        .join("");
+
     connectCards(modsList);
 }
 
-function renderSaved() {
-    const filtered = mods.filter(mod => isSaved(mod.id));
+function renderSavedMods() {
+    const saved = mods.filter(mod => isSaved(mod.id));
 
-    if (filtered.length === 0) {
+    if (saved.length === 0) {
         savedList.innerHTML = `
             <div class="empty">
                 Пока нет сохраненных модов.<br>
@@ -666,21 +683,24 @@ function renderSaved() {
         return;
     }
 
-    savedList.innerHTML = filtered.map(makeCard).join("");
+    savedList.innerHTML = saved
+        .map(createCard)
+        .join("");
+
     connectCards(savedList);
 }
 
 function toggleSaved(id) {
     if (isSaved(id)) {
-        saved = saved.filter(item => item !== id);
+        savedMods = savedMods.filter(item => item !== id);
     } else {
-        saved.push(id);
+        savedMods.push(id);
     }
 
-    saveStorage();
+    saveData();
     renderMods();
-    renderSaved();
-    updateCount();
+    renderSavedMods();
+    updateSavedCount();
 }
 
 function openDetails(mod) {
@@ -691,6 +711,7 @@ function openDetails(mod) {
 
     document.getElementById("detailsItems").innerHTML = `
         <div class="title">Функции и возможности</div>
+
         <div class="items">
             ${mod.items.map(item => `
                 <div class="item">${item}</div>
@@ -700,12 +721,38 @@ function openDetails(mod) {
 
     document.getElementById("detailsInfo").innerHTML = `
         <div class="info-title">Информация</div>
-        ${mod.info }
+
+        ${mod.info.map(info => `
+            <div>${info}</div>
+        `).join("")}
+    `;
+
+    const download = document.getElementById("detailsDownload");
+
+    download.href = mod.file;
+    download.download = mod.file
+        .split("/")
+        .pop()
+        .split("?")[0];
+
+    openModal("detailsModal");
+}
+
+function openModal(id) {
+    document.getElementById(id).classList.add("active");
+    document.body.classList.add("lock");
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove("active");
+
+    if (!document.querySelector(".modal.active")) {
+        document.body.classList.remove("lock");
+    }
 }
 
 document.querySelectorAll(".category").forEach(button => {
-    button.addEventListener("click", () => {
-        activeCategory = button.dataset.category;
+    button.addEventListener("click", () =>Category = button.dataset.category;
 
         document.querySelectorAll(".category").forEach(item => {
             item.classList.remove("active");
@@ -721,8 +768,16 @@ document.getElementById("modsTab").addEventListener("click", () => {
     document.getElementById("savedTab").classList.remove("active");
 
     categories.style.display = "flex";
-   ById("savedModal").classList.add("active");
-    document.body.classList.add("lock");
+    closeModal("savedModal");
+    renderMods();
+});
+
+document.getElementById("savedTab").addEventListener("click", ()ElementById("savedTab").classList.add("active");
+    document.getElementById("modsTab").classList.remove("active");
+
+    categories.style.display = "none";
+    renderSavedMods();
+    openModal("savedModal");
 });
 
 document.querySelectorAll("[data-close]").forEach(button => {
@@ -739,7 +794,7 @@ document.querySelectorAll(".modal").forEach(modal => {
     });
 });
 
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-        closeModal("detailsModal");
-        close
+document.addEventListener("keydown", event**;
+- категории работают;
+- нижняя панель работает;
+- сохранение модов работает.
