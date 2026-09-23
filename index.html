@@ -27,7 +27,7 @@
     .header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 10;
       padding: 18px;
       text-align: center;
       background: rgba(8,10,10,0.85);
@@ -539,6 +539,29 @@
           "Стиль: Автомобиль / транспорт"
         ],
         file: BASE_URL + "Lada.mcaddon?download=1"
+      },
+      {
+        id: "rustic_furniture",
+        categories: ["furniture"],
+        name: "Мебель в деревенском стиле",
+        image: BASE_URL + "kurczak.jpg",
+        text: "Мод Rustic Furniture добавит в игру большой набор мебели для обустройства дома. В коллекции появятся стулья, диваны, столы, шкафчики, ящики и многое другое.",
+        items: [
+          "Стулья и диваны — классические, современные и обеденные модели в 16 цветах",
+          "Столы — журнальные и обеденные столы, столы с полками и табуреты",
+          "Хранение — кухонные шкафы, ящики и прикроватные тумбочки",
+          "Техника — холодильники, духовки, микроволновки и тостеры",
+          "Декор — зеркала, часы, глобусы, чайники и кухонные принадлежности",
+          "Ванная — душевые, ванны, раковины, туалеты и полотенца",
+          "Для улицы — жалюзи, будки для собак и лестницы"
+        ],
+        info: [
+          "Название: Rustic Furniture",
+          "Версия: Minecraft Bedrock",
+          "Тип: Addon",
+          "Категория: Мебель"
+        ],
+        file: BASE_URL + "kurczak.mcaddon?download=1"
       }
     ];
 
@@ -593,7 +616,6 @@
       container.querySelectorAll("[data-open]").forEach((button) => {
         button.addEventListener("click", (event) => {
           event.stopPropagation();
-
           const mod = mods.find((item) => item.id === button.dataset.open);
           if (mod) openDetails(mod);
         });
