@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,7 +9,9 @@
   <style>
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -22,12 +25,14 @@
         #070909;
     }
 
-    body.lock { overflow: hidden; }
+    body.lock {
+      overflow: hidden;
+    }
 
     .header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       padding: 18px;
       text-align: center;
       background: rgba(8,10,10,0.85);
@@ -39,12 +44,15 @@
     .logo {
       font-size: 27px;
       font-weight: 900;
+      letter-spacing: 0.5px;
     }
 
-    .logo span { color: #42e66c; }
+    .logo span {
+      color: #42e66c;
+    }
 
     .hero {
-      padding: 45px 20px 25px;
+      padding: 45px 20px 20px;
       text-align: center;
     }
 
@@ -56,6 +64,17 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      text-shadow: 0 0 20px rgba(95,255,146,0.22);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        filter: drop-shadow(0 0 8px rgba(66,230,108,0.2));
+      }
+      to {
+        filter: drop-shadow(0 0 18px rgba(66,230,108,0.4));
+      }
     }
 
     .hero p {
@@ -63,6 +82,41 @@
       margin: 18px auto 0;
       color: #929a96;
       line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .search-wrap {
+      width: min(1100px, calc(100% - 30px));
+      margin: 0 auto 18px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 16px 18px 16px 48px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      outline: none;
+      background: rgba(12,15,15,0.7);
+      color: #fff;
+      font-size: 16px;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: rgba(66,230,108,0.6);
+      box-shadow: 0 0 0 3px rgba(66,230,108,0.12);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #8cffaa;
+      pointer-events: none;
     }
 
     .categories {
@@ -89,12 +143,14 @@
       font-weight: bold;
       cursor: pointer;
       white-space: nowrap;
+      transition: 0.2s ease;
     }
 
     .category:hover,
     .category.active {
       background: rgba(66,230,108,0.16);
       color: #7cff99;
+      transform: translateY(-1px);
     }
 
     .container {
@@ -111,15 +167,26 @@
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 26px;
-      background: rgba(22,27,25,0.9);
+      background: rgba(22,27,25,0.92);
       box-shadow: 0 25px 80px rgba(0,0,0,0.45);
       cursor: pointer;
       transition: 0.3s ease;
+      transform: translateY(18px);
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .card:hover {
-      transform: translateY(-7px);
+      transform: translateY(-7px) scale(1.004);
       border-color: rgba(65,235,108,0.45);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.55);
     }
 
     .image {
@@ -129,16 +196,21 @@
     }
 
     .image img {
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
       object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .image img {
+      transform: scale(1.08);
     }
 
     .overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(5,8,7,0.9), transparent 55%);
+      background: linear-gradient(to top, rgba(5,8,7,0.92), transparent 55%);
       pointer-events: none;
     }
 
@@ -152,6 +224,16 @@
       border: 1px solid rgba(255,255,255,0.15);
       font-size: 13px;
       font-weight: bold;
+      animation: pulse 2.1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 rgba(66, 230, 108, 0);
+      }
+      50% {
+        box-shadow: 0 0 18px rgba(66, 230, 108, 0.28);
+      }
     }
 
     .info {
@@ -181,6 +263,11 @@
       color: #55ee79;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .open:hover {
+      color: #9cffa7;
     }
 
     .save {
@@ -191,6 +278,12 @@
       color: #8cffaa;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .save:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
     }
 
     .save.saved {
@@ -205,6 +298,7 @@
       color: #929a96;
       text-align: center;
       line-height: 1.7;
+      animation: fadeUp 0.4s ease;
     }
 
     .footer {
@@ -247,12 +341,14 @@
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s ease;
     }
 
     .tab:hover,
     .tab.active {
       background: rgba(66,230,108,0.15);
       color: #7cff99;
+      transform: translateY(-1px);
     }
 
     .count {
@@ -287,6 +383,19 @@
     .modal-content {
       width: min(850px, calc(100% - 30px));
       margin: auto;
+      animation: modalIn 0.25s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .close {
@@ -302,6 +411,7 @@
       color: #fff;
       font-size: 25px;
       cursor: pointer;
+      transition: 0.2s ease;
     }
 
     .close:hover {
@@ -316,6 +426,7 @@
       margin-top: 15px;
       border-radius: 25px;
       object-fit: cover;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
     }
 
     .description {
@@ -377,6 +488,13 @@
       text-decoration: none;
       font-size: 18px;
       font-weight: 900;
+      box-shadow: 0 12px 30px rgba(54,220,101,0.32);
+      transition: 0.2s ease;
+    }
+
+    .download:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
     }
 
     .note {
@@ -395,6 +513,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header class="header">
@@ -403,8 +522,19 @@
 
   <section class="hero">
     <h1>Моды Minecraft</h1>
-    <p>Выбирай категорию, открывай описание, сохраняй понравившиеся и скачивай моды.</p>
+    <p>Выбирай категорию, ищи нужный мод и скачивай его прямо с сайта.</p>
   </section>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔎</span>
+    <input
+      id="searchInput"
+      class="search-input"
+      type="text"
+      placeholder="Поиск модов..."
+      aria-label="Поиск модов"
+    />
+  </div>
 
   <div id="categories" class="categories">
     <button class="category active" data-category="all">Все</button>
@@ -566,13 +696,16 @@
     ];
 
     const STORAGE_KEY = "minecraft_saved_mods";
+
     let activeCategory = "all";
+    let searchText = "";
     let savedMods = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 
     const modsList = document.getElementById("modsList");
     const savedList = document.getElementById("savedList");
     const savedCount = document.getElementById("savedCount");
     const categories = document.getElementById("categories");
+    const searchInput = document.getElementById("searchInput");
 
     function isSaved(id) {
       return savedMods.includes(id);
@@ -584,6 +717,32 @@
 
     function updateSavedCount() {
       savedCount.textContent = savedMods.length;
+    }
+
+    function getVisibleMods() {
+      const query = searchText.trim().toLowerCase();
+
+      return mods.filter((mod) => {
+        const matchCategory =
+          activeCategory === "all"
+            ? true
+            : mod.categories.includes(activeCategory);
+
+        const haystack = [
+          mod.name,
+          mod.text,
+          ...(mod.items || []),
+          ...(mod.info || []),
+          ...(mod.categories || [])
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        const matchSearch =
+          query === "" || haystack.includes(query);
+
+        return matchCategory && matchSearch;
+      });
     }
 
     function createCard(mod) {
@@ -616,6 +775,7 @@
       container.querySelectorAll("[data-open]").forEach((button) => {
         button.addEventListener("click", (event) => {
           event.stopPropagation();
+
           const mod = mods.find((item) => item.id === button.dataset.open);
           if (mod) openDetails(mod);
         });
@@ -639,17 +799,19 @@
     }
 
     function renderMods() {
-      const filteredMods =
-        activeCategory === "all"
-          ? mods
-          : mods.filter((mod) => mod.categories.includes(activeCategory));
+      const visibleMods = getVisibleMods();
 
-      if (filteredMods.length === 0) {
-        modsList.innerHTML = '<div class="empty">В этой категории пока нет модов.</div>';
+      if (visibleMods.length === 0) {
+        modsList.innerHTML = `
+          <div class="empty">
+            Ничего не найдено.<br>
+            Попробуй изменить поиск или категорию.
+          </div>
+        `;
         return;
       }
 
-      modsList.innerHTML = filteredMods.map(createCard).join("");
+      modsList.innerHTML = visibleMods.map(createCard).join("");
       bindEvents(modsList);
     }
 
@@ -657,117 +819,4 @@
       const filteredSaved = mods.filter((mod) => isSaved(mod.id));
 
       if (filteredSaved.length === 0) {
-        savedList.innerHTML = '<div class="empty">Пока нет сохраненных модов.<br>Нажми «Сохранить» на карточке мода.</div>';
-        return;
-      }
-
-      savedList.innerHTML = filteredSaved.map(createCard).join("");
-      bindEvents(savedList);
-    }
-
-    function toggleSaved(id) {
-      if (isSaved(id)) {
-        savedMods = savedMods.filter((item) => item !== id);
-      } else {
-        savedMods.push(id);
-      }
-
-      saveData();
-      renderMods();
-      renderSavedMods();
-      updateSavedCount();
-    }
-
-    function openDetails(mod) {
-      document.getElementById("detailsImage").src = mod.image;
-      document.getElementById("detailsImage").alt = mod.name;
-      document.getElementById("detailsTitle").textContent = mod.name;
-      document.getElementById("detailsText").textContent = mod.text;
-
-      document.getElementById("detailsItems").innerHTML = `
-        <div class="title">Функции и возможности</div>
-        <div class="items">
-          ${mod.items.map((item) => `<div class="item">${item}</div>`).join("")}
-        </div>
-      `;
-
-      document.getElementById("detailsInfo").innerHTML = `
-        <div class="info-title">Информация</div>
-        ${mod.info.map((info) => `<div>${info}</div>`).join("")}
-      `;
-
-      const download = document.getElementById("detailsDownload");
-      download.href = mod.file;
-      download.download = mod.file.split("/").pop().split("?")[0];
-
-      openModal("detailsModal");
-    }
-
-    function openModal(id) {
-      document.getElementById(id).classList.add("active");
-      document.body.classList.add("lock");
-    }
-
-    function closeModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) modal.classList.remove("active");
-
-      if (!document.querySelector(".modal.active")) {
-        document.body.classList.remove("lock");
-      }
-    }
-
-    document.querySelectorAll(".category").forEach((button) => {
-      button.addEventListener("click", () => {
-        activeCategory = button.dataset.category;
-
-        document.querySelectorAll(".category").forEach((item) => item.classList.remove("active"));
-        button.classList.add("active");
-
-        renderMods();
-      });
-    });
-
-    document.getElementById("modsTab").addEventListener("click", () => {
-      document.getElementById("modsTab").classList.add("active");
-      document.getElementById("savedTab").classList.remove("active");
-      categories.style.display = "flex";
-      closeModal("savedModal");
-      renderMods();
-    });
-
-    document.getElementById("savedTab").addEventListener("click", () => {
-      document.getElementById("savedTab").classList.add("active");
-      document.getElementById("modsTab").classList.remove("active");
-      categories.style.display = "none";
-      renderSavedMods();
-      openModal("savedModal");
-    });
-
-    document.querySelectorAll("[data-close]").forEach((button) => {
-      button.addEventListener("click", () => {
-        closeModal(button.dataset.close);
-      });
-    });
-
-    document.querySelectorAll(".modal").forEach((modal) => {
-      modal.addEventListener("click", (event) => {
-        if (event.target === modal) {
-          closeModal(modal.id);
-        }
-      });
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeModal("detailsModal");
-        closeModal("savedModal");
-      }
-    });
-
-    renderMods();
-    renderSavedMods();
-    updateSavedCount();
-  </script>
-</body>
-</html>
+        savedList.inner
