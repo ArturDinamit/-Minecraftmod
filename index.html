@@ -40,62 +40,20 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .nav-btn {
-      border: 0;
-      background: transparent;
-      color: #aebbb2;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .nav-btn:hover,
-    .nav-btn.active {
-      background: rgba(66,230,108,0.13);
-      color: #7cff99;
+      justify-content: center;
     }
 
     .logo {
       font-size: 22px;
       font-weight: 900;
       letter-spacing: 0.2px;
+      text-align: center;
     }
 
     .logo span { color: #42e66c; }
 
-    .saved-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .saved-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      padding: 0 6px;
-      border-radius: 999px;
-      background: #42e66c;
-      color: #071009;
-      font-size: 11px;
-      font-weight: 900;
-    }
-
     .hero {
-      padding: 45px 20px 30px;
+      padding: 45px 20px 20px;
       text-align: center;
     }
 
@@ -115,6 +73,58 @@
       color: #929a96;
       font-size: 16px;
       line-height: 1.6;
+    }
+
+    .nav-strip {
+      width: min(1100px, calc(100% - 30px));
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      background: rgba(8,10,10,0.45);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #aebbb2;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: rgba(66,230,108,0.13);
+      color: #7cff99;
+    }
+
+    .saved-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .saved-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: #42e66c;
+      color: #071009;
+      font-size: 11px;
+      font-weight: 900;
     }
 
     .container {
@@ -354,19 +364,6 @@
     }
 
     @media (max-width: 600px) {
-      .topbar-inner {
-        width: calc(100% - 16px);
-      }
-
-      .nav-btn {
-        padding: 9px 8px;
-        font-size: 13px;
-      }
-
-      .logo {
-        font-size: 18px;
-      }
-
       .container {
         width: calc(100% - 20px);
       }
@@ -383,6 +380,10 @@
       .save-btn {
         width: 100%;
       }
+
+      .nav-strip {
+        width: calc(100% - 20px);
+      }
     }
   </style>
 </head>
@@ -390,21 +391,8 @@
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="nav">
-        <button class="nav-btn active" id="modsTab" type="button">Моды</button>
-      </div>
-
       <div class="logo">
         Minecraft <span>Mods</span>
-      </div>
-
-      <div class="nav">
-        <button class="nav-btn" id="savedTab" type="button">
-          <span class="saved-label">
-            Сохраненные
-            <span id="savedCount" class="saved-count">0</span>
-          </span>
-        </button>
       </div>
     </div>
   </header>
@@ -413,6 +401,16 @@
     <h1>Моды Minecraft</h1>
     <p>Смотри моды, открывай описание, сохраняй понравившиеся и скачивай их прямо с сайта</p>
   </section>
+
+  <div class="nav-strip">
+    <button id="modsTab" class="nav-btn active" type="button">Моды</button>
+    <button id="savedTab" class="nav-btn" type="button">
+      <span class="saved-label">
+        Сохраненные
+        <span id="savedCount" class="saved-count">0</span>
+      </span>
+    </button>
+  </div>
 
   <main class="container">
     <div id="modsList" class="mods"></div>
@@ -534,6 +532,10 @@
       document.getElementById("savedCount").textContent = saved.length;
     }
 
+    function saveToStorage() {
+      localStorage.setItem(savedKey, JSON.stringify(saved));
+    }
+
     function renderCard(mod) {
       const isInSaved = isSaved(mod.id);
       const buttonText = isInSaved ? "✓ Сохранено" : "♡ Сохранить";
@@ -633,7 +635,7 @@
         saved.push(modId);
       }
 
-      localStorage.setItem(savedKey, JSON.stringify(saved));
+      saveToStorage();
       renderMods();
       renderSaved();
       updateSavedCount();
@@ -676,11 +678,15 @@
     }
 
     document.getElementById("modsTab").addEventListener("click", () => {
+      document.getElementById("modsTab").classList.add("active");
+      document.getElementById("savedTab").classList.remove("active");
       closeModal("savedModal");
       document.body.classList.remove("modal-open");
     });
 
     document.getElementById("savedTab").addEventListener("click", () => {
+      document.getElementById("savedTab").classList.add("active");
+      document.getElementById("modsTab").classList.remove("active");
       renderSaved();
       document.getElementById("savedModal").classList.add("active");
       document.body.classList.add("modal-open");
