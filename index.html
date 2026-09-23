@@ -1,720 +1,574 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minecraft Mods</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Mods</title>
 
-  <style>
-    * { box-sizing: border-box; }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(0,255,120,0.13), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(0,180,255,0.12), transparent 30%),
-        #070909;
-    }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding-bottom: 92px;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(0, 255, 120, 0.13), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(0, 180, 255, 0.12), transparent 30%),
+                #070909;
+        }
 
-    body.modal-open { overflow: hidden; }
+        body.modal-open {
+            overflow: hidden;
+        }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      height: 64px;
-      background: rgba(8,10,10,0.55);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
+        /* Логотип сверху */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 18px;
+            text-align: center;
+            background: rgba(8, 10, 10, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
 
-    .topbar-inner {
-      width: min(1100px, calc(100% - 30px));
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .logo {
+            font-size: 27px;
+            font-weight: 900;
+        }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: 0.2px;
-      text-align: center;
-    }
+        .logo span {
+            color: #42e66c;
+        }
 
-    .logo span { color: #42e66c; }
+        /* Заголовок */
+        .hero {
+            padding: 45px 20px 30px;
+            text-align: center;
+        }
 
-    .hero {
-      padding: 45px 20px 20px;
-      text-align: center;
-    }
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(35px, 9vw, 65px);
+            line-height: 1;
+            background: linear-gradient(135deg, #ffffff, #8cffaa, #35e96c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(35px, 9vw, 65px);
-      line-height: 1;
-      background: linear-gradient(135deg, #ffffff, #8cffaa, #35e96c);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+        .hero p {
+            max-width: 600px;
+            margin: 18px auto 0;
+            color: #929a96;
+            font-size: 16px;
+            line-height: 1.6;
+        }
 
-    .hero p {
-      margin: 18px auto 0;
-      max-width: 600px;
-      color: #929a96;
-      font-size: 16px;
-      line-height: 1.6;
-    }
+        /* Карточки */
+        .container {
+            width: min(900px, calc(100% - 30px));
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
 
-    .nav-strip {
-      width: min(1100px, calc(100% - 30px));
-      margin: 0 auto 20px auto;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      background: rgba(8,10,10,0.45);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
+        .mods {
+            display: grid;
+            gap: 25px;
+        }
 
-    .nav-btn {
-      appearance: none;
-      border: 0;
-      background: transparent;
-      color: #aebbb2;
-      padding: 10px 18px;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
+        .mod-card {
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 26px;
+            background: rgba(22, 27, 25, 0.9);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
 
-    .nav-btn:hover,
-    .nav-btn.active {
-      background: rgba(66,230,108,0.13);
-      color: #7cff99;
-    }
+        .mod-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(65, 235, 108, 0.45);
+        }
 
-    .saved-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
 
-    .saved-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      padding: 0 6px;
-      border-radius: 999px;
-      background: #42e66c;
-      color: #071009;
-      font-size: 11px;
-      font-weight: 900;
-    }
+        .mod-card-image {
+            display: block;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
 
-    .container {
-      width: min(900px, calc(100% - 30px));
-      margin: 0 auto;
-      padding-bottom: 60px;
-    }
+        .mod-card:hover .mod-card-image {
+            transform: scale(1.04);
+        }
 
-    .mods {
-      display: grid;
-      gap: 25px;
-    }
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(
+                to top,
+                rgba(5, 8, 7, 0.9),
+                transparent 55%
+            );
+        }
 
-    .mod-card {
-      overflow: hidden;
-      border-radius: 26px;
-      background: rgba(22,27,25,0.9);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 25px 80px rgba(0,0,0,0.45);
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
+        .badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            padding: 8px 13px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 999px;
+            background: rgba(20, 25, 22, 0.85);
+            font-size: 13px;
+            font-weight:: #929a96;
+            line-height: 1.6;
+        }
 
-    .mod-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(65,235,108,0.45);
-    }
+        .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 20px;
+        }
 
-    .image-wrapper {
-      position: relative;
-      overflow: hidden;
-    }
+        .open-text {
+            color: # background: rgba(66, 230, 108, 0.25);
+        }
 
-    .mod-card img {
-      display: block;
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-    }
+        .save-button.saved {
+            background: #42e66c;
+            color: #071009;
+        }
 
-    .image-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(5,8,7,0.9), transparent 55%);
-      pointer-events: none;
-    }
+        /* Фиксированная нижняя полоска */
+        .bottom-navigation {
+            position: fixed;
+ 9px 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(8, 10, 10, 0.7);
+            box-shadow: 0 -10px 35px rgba(0,  120px;
+            border: 0;
+            border-radius: 14px;
+            padding: 10px 18px;
+            background: transparent;
+            color: #929a96;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
 
-    .badge {
-      position: absolute;
-      top: 18px;
-      left: 18px;
-      padding: 8px 13px;
-      border-radius: 999px;
-      background: rgba(20,25,22,0.85);
-      border: 1px solid rgba(255,255,255,0.15);
-      font-size: 13px;
-      font-weight: bold;
-    }
+        .navigation-button:hover,
+        .navigation-button.active {
+            background: rgba(66, 230, 108, 0.15);
+            color: #7cff99;
+        }
 
-    .mod-info {
-      padding: 22px;
-    }
+        .saved-counter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
+            margin-left: 5px;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: #42e66c;
+            color: #071009;
+            font-size: 11px;
+            font-weight: 900;
+        }
 
-    .mod-info h2 {
-      margin: 0 0 10px;
-      font-size: 25px;
-    }
+        /* Подвал */
+        .footer {
+            padding: 30px 20px 30px;
+            color: #4f5753;
+            text-align: center;
+            font-size: 13px;
+        }
 
-    .mod-info p {
-      margin: 0;
-      color: #929a96;
-      line-height: 1.6;
-    }
+        /* Окна */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+            padding: 20px 0 50px;
+            background: rgba(4, 6, 6, 0.98);
+        }
 
-    .card-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 20px;
-    }
+        .modal.active {
+            display: block;
+        }
 
-    .open-text {
-      color: #55ee79;
-      font-weight: bold;
-      cursor: pointer;
-    }
+        .modal-content {
+            width: min(850px, calc(100% - 30px));
+            margin: 0 auto;
+        }
 
-    .save-btn {
-      border: 1px solid rgba(66,230,108,0.35);
-      background: rgba(66,230,108,0.08);
-      color: #8cffaa;
-      border-radius: 12px;
-      padding: 10px 13px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
+        .close-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            margin-left: auto;
+            border: 0;
+            border-radius: 50 .modal-image {
+            display: block;
+            width: 100%;
+            max-height: 500px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            object-fit: cover;
+        }
 
-    .save-btn.saved {
-      background: #42e66c;
-      color: #071009;
-    }
+        .description {
+            padding: 25px 5px;
+        }
 
-    .empty {
-      text-align: center;
-      padding: 40px 20px;
-      border: 1px dashed rgba(255,255,255,0.16);
-      border-radius: 20px;
-      color: #929a96;
-      line-height: 1.7;
-    }
+        .description h2 {
+            margin: 0 0 15px;
+ {
+            padding: 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255            text-decoration: none;
+            font-size: 18px;
+            font-weight: 900;
+        }
 
-    .footer {
-      padding: 30px 20px 50px;
-      color: #4f5753;
-      text-align: center;
-      font-size: 13px;
-    }
+        .download-button:hover {
+            background: #55ee79;
+        }
 
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: none;
-      overflow-y: auto;
-      padding: 20px 0 50px;
-      background: rgba(4,6,6,0.98);
-    }
+        .note {
+            margin-top: 12px;
+            color: #626a66;
+            text-align: center;
+            font-size: 12px;
+        }
 
-    .modal.active { display: block; }
-
-    .modal-content {
-      width: min(850px, calc(100% - 30px));
-      margin: auto;
-    }
-
-    .close {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      margin-left: auto;
-      border: 0;
-      border-radius: 50%;
-      background: #202523;
-      color: white;
-      font-size: 25px;
-      cursor: pointer;
-    }
-
-    .close:hover {
-      background: #35d965;
-      color: #071009;
-    }
-
-    .modal-image {
-      display: block;
-      width: 100%;
-      max-height: 500px;
-      margin-top: 15px;
-      border-radius: 25px;
-      object-fit: cover;
-    }
-
-    .description {
-      padding: 25px 5px;
-    }
-
-    .description h2 {
-      margin: 0 0 15px;
-      font-size: clamp(30px, 7vw, 45px);
-    }
-
-    .description p {
-      color: #aeb5b1;
-      line-height: 1.7;
-    }
-
-    .items-title {
-      margin-top: 25px;
-      margin-bottom: 12px;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .items {
-      display: grid;
-      gap: 10px;
-    }
-
-    .item {
-      padding: 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.05);
-      color: #d7ddd9;
-    }
-
-    .info-box {
-      margin-top: 25px;
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      line-height: 1.8;
-    }
-
-    .info-title {
-      margin-bottom: 8px;
-      color: #52e873;
-      font-weight: bold;
-    }
-
-    .download {
-      display: block;
-      width: 100%;
-      margin-top: 25px;
-      padding: 18px;
-      border-radius: 17px;
-      background: linear-gradient(135deg, #36dc65, #20b94d);
-      color: #061009;
-      text-align: center;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .download:hover {
-      background: #55ee79;
-    }
-
-    .note {
-      margin-top: 12px;
-      color: #626a66;
-      text-align: center;
-      font-size: 12px;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        width: calc(100% - 20px);
-      }
-
-      .mod-card img {
-        height: 240px;
-      }
-
-      .card-actions {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .save-btn {
-        width: 100%;
-      }
-
-      .nav-strip {
-        width: calc(100% - 20px);
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="logo">
-        Minecraft <span>Mods</span>
-      </div>
-    </div>
-  </header>
-
-  <section class="hero">
-    <h1>Моды Minecraft</h1>
-    <p>Смотри моды, открывай описание, сохраняй понравившиеся и скачивай их прямо с сайта</p>
-  </section>
-
-  <div class="nav-strip">
-    <button id="modsTab" class="nav-btn active" type="button">Моды</button>
-    <button id="savedTab" class="nav-btn" type="button">
-      <span class="saved-label">
-        Сохраненные
-        <span id="savedCount" class="saved-count">0</span>
-      </span>
-    </button>
-  </div>
-
-  <main class="container">
-    <div id="modsList" class="mods"></div>
-  </main>
-
-  <footer class="footer">Minecraft Mods • Bedrock Edition</footer>
-
-  <div class="modal" id="detailModal">
+        .empty-message {
+            padding: 40px 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.16);
+            border-radius: 20px;
+            color: #929a96;
+            text -->
+<div id="savedModal" class="modal">
     <div class="modal-content">
-      <button class="close" data-close="detailModal">×</button>
+        <button class="close-button" data-close="savedModal">×</button>
 
-      <img id="detailImage" class="modal-image" src="" alt="" />
+        <div class="description">
+            <h2>Сохраненные моды</h2>
+            <p>Здесь находятся моды, которые ты сохранил.</p>
 
-      <div class="description">
-        <h2 id="detailTitle"></h2>
-        <p id="detailDescription"></p>
-
-        <div id="detailItems"></div>
-
-        <div id="detailInfo" class="info-box"></div>
-
-        <a id="detailDownload" class="download" href="" download="">
-          ↓ Скачать мод
-        </a>
-
-        <div class="note">Файл для Minecraft Bedrock</div>
-      </div>
+            <div id="savedModsList" class="mods"></div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <div class="modal" id="savedModal">
-    <div class="modal-content">
-      <button class="close" data-close="savedModal">×</button>
-
-      <div class="description">
-        <h2>Сохраненные моды</h2>
-        <p>Здесь находятся моды, которые ты сохранил.</p>
-        <div id="savedList" class="mods"></div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const BASE = "https://raw.githubusercontent.com/ArturDinamit/-Minecraftmod/main/";
+<script>
+    const BASE_URL =
+        "https.com/ArturDinamit/-Minecraftmod/main/";
 
     const mods = [
-      {
-        id: "forge",
-        name: "Несбалансированная Кузница",
-        image: BASE + "5002.jpg",
-        description: "Незеритовая экипировка с максимальными чарами всего за 1 изумруд.",
-        features: [
-          "Незеритовая броня и инструменты",
-          "Новые сделки жителя-кузнеца",
-          "Максимальные чары",
-          "Удобный подбор для выживания"
-        ],
-        info: [
-          "Оригинальное название: OP Toolsmith",
-          "Версия: Minecraft Bedrock",
-          "Тип: Addon"
-        ],
-        download: BASE + "mod.mcaddon"
-      },
-      {
-        id: "guns",
-        name: "Современное оружие с разными стилями боя",
-        image: BASE + "102.jpg",
-        description: "Современное и классическое огнестрельное оружие с разными характеристиками и боеприпасами.",
-        features: [
-          "Револьвер",
-          "Пистолет",
-          "Пистолет-пулемёт",
-          "Двуствольный обрез",
-          "Разные характеристики боя",
-          "Разные типы боеприпасов"
-        ],
-        info: [
-          "Название: TR’s Simple Guns",
-          "Версия: Minecraft Bedrock",
-          "Тип: Addon",
-          "Боеприпасы: разные типы"
-        ],
-        download: BASE + "guns.mcpack"
-      },
-      {
-        id: "lada",
-        name: "Лада Веста",
-        image: BASE + "Lada.jpg",
-        description: "Собственная русская машина в Minecraft с открывающимися дверьми, капотом и багажником.",
-        features: [
-          "Открываются двери, капот и багажник",
-          "4 посадочных места",
-          "Заводится с ключа",
-          "Коробка передач",
-          "Спидометр",
-          "Коллизия",
-          "Требуется бензин",
-          "Есть музыка"
-        ],
-        info: [
-          "Название: Лада Веста",
-          "Версия: Minecraft Bedrock",
-          "Тип: Addon",
-          "Стиль: Автомобиль / транспорт"
-        ],
-        download: BASE + "Lada.mcaddon?download=1"
-      }
-    ];
+        {
+истолет",
+                "Пистолет-пулемёт",
+                "Двуствольный обрез",
+                "Разные характеристики боя",
+                "Разные типы боеприпасов"
+            ],
+            info: [
+                "Название: TR’s Simple Guns",
+                "Версия: Minecraft Bedrock",
+                "Тип: Addon",
+                "Боеприпасы: разные типы"
+            ],
+            download: BASE_URL + "guns.mcpack"
+        },
 
-    const savedKey = "minecraft_mods_saved";
-    let saved = JSON.parse(localStorage.getItem(savedKey) || "[]");
+        {
+            id: "lada",
+            name: "Лада Веста",
+            image: BASE_URL + "Lada.jpg",
+            description:
+                "Собственная русская машина в Minecraft с открывающимися двер и багажником.",
+           ски Такси и ДПС",
+                "Открываются все двери, капот и багажник",
+                "4 посадочных места",
+                "Заводится с ключа",
+                "Есть коробка передач",
+                "Спидометр",
+                "Коллизия",
+                "Требуется бензин",
+                "Есть музыка"
+            ],
+            info: [
+                "Название: Лада Веста",
+                "Версия: Minecraft Bedrock",
+                "Тип: Addon",
+                "Стиль: Автомобиль / транспорт"
+            ],
+            download: BASE_URL + "Lada.mcaddon?download= document.getElementById("savedModsList");
+    const savedCounter = document.getElementById("savedCounter");
 
-    function isSaved(id) {
-      return saved.includes(id);
+    function isSaved(modId) {
+        return savedMods.includes(modId);
     }
 
-    function updateSavedCount() {
-      document.getElementById("savedCount").textContent = saved.length;
+    function updateSavedCounter() {
+        savedCounter.textContent = savedMods.length;
     }
 
-    function saveToStorage() {
-      localStorage.setItem(savedKey, JSON.stringify(saved));
+    function saveData() {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(savedMods)
+        );
     }
 
-    function renderCard(mod) {
-      const isInSaved = isSaved(mod.id);
-      const buttonText = isInSaved ? "✓ Сохранено" : "♡ Сохранить";
-      const buttonClass = isInSaved ? "save-btn saved" : "save-btn";
+    function createModCard(mod) {
+        const saved = isSaved(mod.id);
 
-      return `
-        <article class="mod-card" data-id="${mod.id}">
-          <div class="image-wrapper">
-            <img src="${mod.image}" alt="${mod.name}" />
-            <div class="image-overlay"></div>
-            <div class="badge">MINECRAFT BEDROCK</div>
-          </div>
+        return `
+            <article class="mod-card" data-mod-id="${mod.id}">
+                <div class="image-wrapper">
+                    <img
+                        class="mod-card-image"
+                        src="${mod.image}"
+                        alt="${mod.name}"
+                    >
 
-          <div class="mod-info">
-            <h2>${mod.name}</h2>
-            <p>${mod.description}</p>
+                    <div class="image-overlay"></div>
 
-            <div class="card-actions">
-              <span class="open-text" data-open="${mod.id}">Открыть описание →</span>
-              <button class="${buttonClass}" type="button" data-save="${mod.id}">
-                ${buttonText}
-              </button>
-            </div>
-          </div>
-        </article>
-      `;
+                    <div class="badge">
+                        MINECRAFT BEDROCK
+                    </div>
+                </div>
+
+                <div class="mod-info">
+                    <h2>${mod.name}</h2>
+
+                    <p>${mod.description}</p>
+
+                    <div class="card-actions">
+                        <span class="open-text" data-open-mod="${mod.id}">
+                            Открыть описание →
+                        </span>
+
+                        <button
+                            class="save-button ${saved ? "saved" : ""}"
+                            type="button"
+                            data-save-mod="${mod.id}"
+                        >
+                            ${saved ? "✓ Сохранено" : "♡ Сохранить"}
+                        </button>
+                    </div>
+                </div>
+            </article>
+        `;
     }
 
     function renderMods() {
-      const list = document.getElementById("modsList");
-      list.innerHTML = mods.map(renderCard).join("");
+        modsList.innerHTML = mods
+            .map(createModCard)
+            .join("");
 
-      list.querySelectorAll("[data-open]").forEach(button => {
-        button.addEventListener("click", function(event) {
-          event.stopPropagation();
-          openDetail(mods.find(mod => mod.id === this.dataset.open));
-        });
-      });
-
-      list.querySelectorAll("[data-save]").forEach(button => {
-        button.addEventListener("click", function(event) {
-          toggleSave(this.dataset.save, event);
-        });
-      });
-
-      list.querySelectorAll(".mod-card").forEach(card => {
-        card.addEventListener("click", function(event) {
-          if (event.target.closest(".save-btn")) return;
-          openDetail(mods.find(mod => mod.id === card.dataset.id));
-        });
-      });
+        addCardEvents(modsList);
     }
 
-    function renderSaved() {
-      const savedList = document.getElementById("savedList");
-      const savedMods = mods.filter(mod => saved.includes(mod.id));
+    function renderSavedMods() {
+        const saved = mods.filter(mod => isSaved(mod.id));
 
-      if (!savedMods.length) {
-        savedList.innerHTML = `
-          <div class="empty">
-            Пока нет сохраненных модов.<br>
-            Нажми «Сохранить» на карточке мода.
-          </div>
+        if (saved.length === 0) {
+            savedModsList.innerHTML = `
+                <div class="empty-message">
+                    Пока нет сохраненных модов.<br>
+                    Нажми «Сохранить» на карточке мода.
+                </div>
+            `;
+            return;
+        }
+
+        savedModsList.innerHTML = saved
+            .map(createModCard)
+            .join("");
+
+        addCardEvents(savedModsList);
+    }
+
+    function addCardEvents(container) {
+        container
+            .querySelectorAll("[data-open-mod]")
+            .forEach(button => {
+                button.addEventListener("click", function(event) {
+                    event.stopPropagation();
+
+                    const mod = mods.find(
+                        item => item.id === this.dataset.openMod
+                    );
+
+                    openDetails(mod);
+                });
+            });
+
+        container
+            .querySelectorAll("[data-save-mod]")
+            .forEach(button => {
+                button.addEventListener("click", function(event) {
+                    event.stopPropagation();
+
+                    toggleSaved(this.dataset.saveMod);
+                });
+            });
+
+        container
+            .querySelectorAll(".mod-card")
+            .forEach(card => {
+                card.addEventListener("click", function(event) {
+                    if (event.target.closest(".save-button")) {
+                        return;
+                    }
+
+                    const mod = mods.find(
+                        item => item.id === this.dataset.modId
+                    );
+
+                    openDetails(mod);
+                });
+            });
+    }
+
+    function toggleSaved(modId) {
+        if (isSaved(modId)) {
+            savedMods = savedMods.filter(id => id !== modId);
+        } else {
+            savedMods.push(modId);
+        }
+
+        saveData();
+        updateSavedCounter();
+        renderMods();
+        renderSavedMods();
+    }
+
+    function openDetails(mod) {
+        document.getElementById("detailsImage").src = mod.image;
+        document.getElementById("detailsImage").alt = mod.name;
+
+        document.getElementById("detailsTitle").textContent = mod.name;
+        document.getElementById("detailsDescription").textContent =
+            mod.description;
+
+        document.getElementById("detailsFeatures").innerHTML = `
+            <div class="items-title">Функции</div>
+
+            <div class="items">
+                ${mod.features
+                    .map(feature => `<div class="item">${feature}</div>`)
+                    .join("")}
+            </div>
         `;
-        return;
-      }
 
-      savedList.innerHTML = savedMods.map(renderCard).join("");
+        document.getElementById("detailsInfo").innerHTML = `
+            <div class="info-title">Информация</div>
 
-      savedList.querySelectorAll("[data-open]").forEach(button => {
-        button.addEventListener("click", function(event) {
-          event.stopPropagation();
-          openDetail(mods.find(mod => mod.id === this.dataset.open));
-        });
-      });
+            ${mod.info
+                .map(info => `<div>${info}</div>`)
+                .join("")}
+        `;
 
-      savedList.querySelectorAll("[data-save]").forEach(button => {
-        button.addEventListener("click", function(event) {
-          toggleSave(this.dataset.save, event);
-        });
-      });
+        const download = document.getElementById("detailsDownload");
 
-      savedList.querySelectorAll(".mod-card").forEach(card => {
-        card.addEventListener("click", function(event) {
-          if (event.target.closest(".save-btn")) return;
-          openDetail(mods.find(mod => mod.id === card.dataset.id));
-        });
-      });
+        download.href = mod.download;
+        download.download = mod.download
+            .split("/")
+            .pop()
+            .split("?")[0];
+
+        openModal("detailsModal");
     }
 
-    function toggleSave(modId, event) {
-      if (event) event.stopPropagation();
-
-      if (saved.includes(modId)) {
-        saved = saved.filter(item => item !== modId);
-      } else {
-        saved.push(modId);
-      }
-
-      saveToStorage();
-      renderMods();
-      renderSaved();
-      updateSavedCount();
-    }
-
-    function openDetail(mod) {
-      document.getElementById("detailImage").src = mod.image;
-      document.getElementById("detailImage").alt = mod.name;
-
-      document.getElementById("detailTitle").textContent = mod.name;
-      document.getElementById("detailDescription").textContent = mod.description;
-
-      document.getElementById("detailItems").innerHTML =
-        "<div class=\"items-title\">Функции</div>" +
-        "<div class=\"items\">" +
-        mod.features.map(item => `<div class=\"item\">${item}</div>`).join("") +
-        "</div>";
-
-      document.getElementById("detailInfo").innerHTML =
-        "<div class=\"info-title\">Информация</div>" +
-        mod.info.map(item => `<div>${item}</div>`).join("");
-
-      const downloadLink = document.getElementById("detailDownload");
-      downloadLink.href = mod.download;
-      downloadLink.download = mod.download.split("/").pop();
-
-      document.getElementById("detailModal").classList.add("active");
-      document.body.classList.add("modal-open");
+    function openModal(id) {
+        document.getElementById(id).classList.add("active");
+        document.body.classList.add("modal-open");
     }
 
     function closeModal(id) {
-      const modal = document.getElementById(id);
-      if (modal) modal.classList.remove("active");
+        document.getElementById(id).classList.remove("active");
+
+        if (
+            !document.querySelector(".modal.active")
+        ) {
+            document.body.classList.remove("modal-open");
+        }
     }
 
     function closeAllModals() {
-      closeModal("detailModal");
-      closeModal("savedModal");
-      document.body.classList.remove("modal-open");
+        document
+            .querySelectorAll(".modal")
+            .forEach(modal => modal.classList.remove("active"));
+
+        document.body.classList.remove("modal-open");
     }
 
-    document.getElementById("modsTab").addEventListener("click", () => {
-      document.getElementById("modsTab").classList.add("active");
-      document.getElementById("savedTab").classList.remove("active");
-      closeModal("savedModal");
-      document.body.classList.remove("modal-open");
+    document.getElementById("modsTab").addEventListener("click", function() {
+        this.classList.add("active");
+        document.getElementById("savedTab").classList.remove("active");
+        closeModal("savedModal");
     });
 
-    document.getElementById("savedTab").addEventListener("click", () => {
-      document.getElementById("savedTab").classList.add("active");
-      document.getElementById("modsTab").classList.remove("active");
-      renderSaved();
-      document.getElementById("savedModal").classList.add("active");
-      document.body.classList.add("modal-open");
+    document.getElementById("savedTab").addEventListener("click", function() {
+        this.classList.add("active");
+        document.getElementById("modsTab").classList.remove("active");
+
+        renderSavedMods();
+        openModal("savedModal");
     });
 
     document.querySelectorAll("[data-close]").forEach(button => {
-      button.addEventListener("click", () => {
-        closeModal(button.dataset.close);
-        document.body.classList.remove("modal-open");
-      });
-    });
-
-    document.querySelectorAll(".modal").forEach(modal => {
-      modal.addEventListener("click", function(event) {
-        if (event.target === modal) {
-          closeAllModals();
-        }
-      });
+        button.addEventListener("click", function() {
+            closeModal(this.dataset.closeEach(modal => {
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                closeModal(modal.id);
+            }
+        });
     });
 
     document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape") {
-        closeAllModals();
-      }
+        if (event.key === "Escape") {
+            closeAllModals();
+        }
     });
 
     renderMods();
-    updateSavedCount();
-  </script>
+    updateSavedCounter();
+</script>
+
 </body>
 </html>
